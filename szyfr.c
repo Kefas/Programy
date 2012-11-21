@@ -33,9 +33,7 @@ for (zmiana=0;zmiana<=25;zmiana++)
   e=0;
   i=0;
   o=0;
-  u=0;
-  y=0;
-  
+
   while((ch=getc(fp))!=EOF)
    {
    wszystkie++;
