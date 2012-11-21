@@ -6,7 +6,7 @@ int main(void)
 
 char ch	;
 int ok,zmiana;
-float a ,e,i,o,u,y,wszystkie,z;
+float a,e,i,o,u,y,wszystkie,z;
   
   FILE *fp, *fs;
   fp=fopen("zamiana.txt","r");

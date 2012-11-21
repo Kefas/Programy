@@ -14,7 +14,8 @@ float a,e,i,o,u,y,wszystkie,z;
   ch=getc(fp);
   if(fp==NULL)
    {
-   printf("nie moge otworzy pliku");
+   printf("nie moge otworzyc pliku");
+   printf("Ta linijka jest dodana");
    exit(1);
    }
   
