@@ -48,7 +48,7 @@ return 0;
 void sortuj(int tablica[5][ROZMIAR]) 
 {
   
-  int j, porzadek,w, (*wsk)[ROZMIAR];
+  int j, porzadek, (*w)[ROZMIAR], (*wsk)[ROZMIAR];
   wsk=tablica;
  printf("jestem tu");
  
@@ -57,13 +57,13 @@ void sortuj(int tablica[5][ROZMIAR])
     {
       if (( *(*(tablica)+4)<*(*(tablica+1)+4) )  ||  (( *(*(tablica)+4)==*(*(tablica+1)+4) ) && ( *(*(tablica)+3)<*(*(tablica+1)+3) )) || ( ( *(*(tablica)+4)==*(*(tablica+1)+4) ) && ( *(*(tablica)+3)==*(*(tablica+1)+3) ) && ( *(*(tablica)+2)<*(*(tablica+1)+2) )))  
        {
-         w=(*tablica)[ROZMIAR];
-         (*tablica)[ROZMIAR]=(*(tablica+1))[ROZMIAR];
-         (*(tablica+1))[ROZMIAR]=w;
+         *w=(tablica);
+         (tablica)=(tablica+1);
+         (tablica+1)=*w;
 
        }else porzadek++;
         j++;
-        (*tablica)[ROZMIAR]=(*(tablica+1))[ROZMIAR];    
+        (tablica)=(tablica+1);    
         if (porzadek!=ROZMIAR-1)
 	  {
             j=0;
