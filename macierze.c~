@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+int main(void)
+{
+  int m,n;
+  int matrice1[m][n];
+  int matrice2[n][m];
+
+
+  printf(" This is a program to multiply and sum matrices\n");
+  printf(" You can summing matrices in the same sizes and multipying matrices of inverse sizes.");
+
+  printf("Type number of lines matrice 1: m= ");
+  scanf("%d", &m);
+  printf("Type number of columns matrice 1: n= ");
+  scanf("%d", &n);
+  printf("Second matrice has got n-lines and m-columnes");
+
+}
