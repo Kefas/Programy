@@ -34,8 +34,9 @@ struct slownik* inicjalizacja(FILE *fp)
       i++;
     }
   slownik->r=i;
-  printf("hasla: %s",slownik->wyrazy[23]);  
-return slownik;
+  for(i=0;i<slownik->r;i++)
+    printf("%d. %s\n",i,slownik->wyrazy[i]);  
+  return slownik;
 }
 
 
