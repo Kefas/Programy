@@ -52,7 +52,7 @@ struct krzyzowka* losuj(struct slownik *slownik)
 {
   int i,j,min=0,max=0;
   struct krzyzowka *krzyzowka = (struct krzyzowka*)malloc(sizeof(struct krzyzowka));
-  char *haslo = slownik->wyrazy[rand()%(slownik->r)];
+  char *haslo = slownik->wyrazy[rand()%(slownik->r)]; /*Tu jest blad, zbyt duza liczba POPRAW*/
   
   krzyzowka->haslo=(char*)malloc(sizeof(char)*(strlen(haslo)+1));
   strcpy(krzyzowka->haslo,haslo);
