@@ -50,9 +50,10 @@ struct slownik* inicjalizacja(FILE *fp)
 
 struct krzyzowka* losuj(struct slownik *slownik)
 {
+  srand(time(0));
   int i,j,min=0,max=0;
   struct krzyzowka *krzyzowka = (struct krzyzowka*)malloc(sizeof(struct krzyzowka));
-  char *haslo = slownik->wyrazy[rand()%(slownik->r)]; /*Tu jest blad, zbyt duza liczba POPRAW*/
+  char *haslo = slownik->wyrazy[(rand()%18309)*6-1]; /*Tu jest blad, zbyt duza liczba POPRAW*/
   
   krzyzowka->haslo=(char*)malloc(sizeof(char)*(strlen(haslo)+1));
   strcpy(krzyzowka->haslo,haslo);
@@ -62,24 +63,27 @@ struct krzyzowka* losuj(struct slownik *slownik)
   for(i=0;i<krzyzowka->r;i++)
     {
       for(j=0;j<slownik->r;j++)
-	{     
-          if(slownik->wyrazy[i][0]==haslo[i])  /*pierwszy wyraz na tą literę*/
+	{
+	  min=0;max=0;     
+          if(slownik->wyrazy[j][0]==haslo[i])  /*pierwszy wyraz na tą literę*/
 	    {
+	      printf("min =%d\n",min);
 	  min=j;
 	  break;
 	    }
+          if(min!=0) break;
 	}
-      for(j=min;j<krzyzowka->r;j++)
+      for(j=min;j<slownik->r;j++)
 	{
-	  if(slownik->wyrazy[j][0]==haslo[j]) /*ostatni wyraz na tą literę*/
+	  if(slownik->wyrazy[j][0]==haslo[i]) /*ostatni wyraz na tą literę*/
           max=j;
 	}
-       do
-     { 
-printf("i was here");
- krzyzowka->hasla[i]=slownik->wyrazy[rand()%(max-min) + min])); /*a może tu też przydzielić pamięć? */
-     }while(krzyzowka->hasla[i] != haslo[i]);
-     }
+         do{ 
+	   printf(" i:%d, max=%d, min =%d max-min=%d\n, hasla %s",i,max,min,max-min,krzyzowka->haslo);
+	   krzyzowka->hasla[i]=slownik->wyrazy[rand()%(max-min)+min];  	                   }while(krzyzowka->hasla[i][0] != haslo[i]);
+	   }   
+  for(i=0;i<krzyzowka->r;i++)
+  printf(" \n %s",krzyzowka->hasla[i]);
   return krzyzowka;
 }	
  
@@ -89,7 +93,6 @@ int main(void)
   FILE *fp;
   struct krzyzowka *krzyzowka; /* czemu musza być *?? */
   struct slownik *slownik;
-  int i;
 
     fp=fopen("polish.txt","r");
   if(fp==NULL)
