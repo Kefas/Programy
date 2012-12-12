@@ -81,10 +81,27 @@ struct krzyzowka* losuj(struct slownik *slownik)
          do{ 
 	   printf(" i:%d, max=%d, min =%d max-min=%d\n, hasla %s",i,max,min,max-min,krzyzowka->haslo);
 	   krzyzowka->hasla[i]=slownik->wyrazy[rand()%(max-min)+min];  	                   }while(krzyzowka->hasla[i][0] != haslo[i]);
-	   }   
-  for(i=0;i<krzyzowka->r;i++)
-  printf(" \n %s",krzyzowka->hasla[i]);
-  return krzyzowka;
+    }
+
+for(i=0;i<krzyzowka->r;i++)
+  printf(" \n %s",krzyzowka->hasla[i]); 
+ 
+ krzyzowka->stan = (char**)malloc(krzyzowka->r*sizeof(char*));
+
+     for(i=0;i<krzyzowka->r;i++)
+       {
+	  krzyzowka->stan[i]=(char*)malloc((strlen(krzyzowka->hasla[i])+1)*sizeof(char));  /*alokacja pamieci na moja tabele*/
+	 for(j=0;j<strlen(krzyzowka->hasla[i]);j++)
+	   krzyzowka->stan[i][j]='_';
+	 krzyzowka->stan[i][j]='\0'; /*znak konca tekstu*/
+       }
+for(i=0;i<krzyzowka->r;i++)
+  printf(" \n%d  : %s ",i,krzyzowka->stan[i]); 
+				   
+
+
+
+ return krzyzowka;
 }	
  
 
@@ -105,6 +122,7 @@ int main(void)
   slownik=inicjalizacja(fp);
   /*  print(slownik);*/
   losuj(slownik);
+  
 
   fclose(fp);
   return 0;
