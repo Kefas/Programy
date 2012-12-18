@@ -6,69 +6,108 @@
 struct struktura1
 {
   char*  main_city;
-  struct struktura2 *miasta_posrednie;
-};
+  struct struktura2 *miasta_poboczne;
+  
+  };
 
 struct struktura2
 {
   char* city;
   int distance;
+  int indeks;
 };
 
-void inicjalizacja(FILE *fp);
-
-
+void inicjalizacja(FILE *fp, int glowne, int poboczne);
+/*  void wyswietl(struct struktura1 *miasta_glowne, struct struktura2 *miasta_poboczne);
+ */
 
 int main(void)
 {
   FILE *fp;
   struct struktura1 *miasta_glowne;
   struct struktura2 *miasta_poboczne;
-  fp = fopen("miejscowosci.txt","r");
+  int i, glowne,poboczne;
+  char temp[255], *result;
+  
+fp = fopen("miejscowosci.txt","r");
   if(fp==NULL)
     {
       perror("Nie udało się otworzyć pliku lub plik jest pusty");
       return 1;
-    }
+    } 
+    for(i=0;i<100;i++)
+      {
+      result = fgets(temp, 50 ,fp);
+      if(result!=NULL)
+	{
+	  printf("%d. %s",i,temp);
+      if(temp[0]>=48 && temp[0]<=57)
+	glowne++;
+      if(temp[0]>=65 && temp[0]<=90)
+        poboczne++;
+	}      
+     
+       }
+  printf("glowne2 %d, poboczne %d",glowne,poboczne);
+   
+  inicjalizacja(fp,glowne,poboczne);
 
-  inicjalizacja(fp);
-
-  
+  /*  wyswietl(miasta_glowne, miasta_poboczne); */
    
  fclose(fp);
   return 0;
 }
 
 
-void inicjalizacja(FILE *fp)
+void inicjalizacja(FILE *fp, int glowne, int poboczne)
 {
-  char temp[255];
+  char temp[255],buff[255],*result;
   int i=0,j=0;
-
-  struct struktura1* miasta_glowne=(struct stuktura1*)malloc(sizeof(struct struktura1));
-  struct struktura2* miasta_poboczne=(struct struktura2*)malloc(sizeof(struct struktura2));
-  /* wydaje mi się, że tu należy alokować pamięć dla pierwszego elementu a w tym while'u poniżej należy alokować pamięć dla kolejnych elementów tablicy struktur a nie rozszerzać tą istniejącą.*/
-
   
-  while(fscanf(fp,"%s",temp)!=EOF)
-    {
-      if(temp[1]=='1' || temp[1]=='2' || temp[1]=='3' || temp[1]=='4' || temp[1]=='5' || temp[1]=='6' || temp[1]=='7' || temp[1]=='8' || temp[1]=='9')
-	{
-	  struct struktura2* miasta_poboczne=(struct struktura2*)realloc(miasta_poboczne, (j+1)*sizeof(struct struktura2));
-	  j++;	
-
-	}
-      else 
-	{
-	  struct struktura1 *miasta_glowne=(struct struktura1*)realloc(miasta_glowne, (i+1)*sizeof(struct struktura1));
-	  i++;	
-	}
-
-
-  */
-
+  struct struktura1* miasta_glowne=(struct stuktura1*)malloc(sizeof(struct struktura1)*(glowne));
+  struct struktura2* miasta_poboczne=(struct struktura2*)malloc(sizeof(struct struktura2*)*(poboczne)); /* tu nie jestem pewien czy gwiazdka przy sizeof, edit na pewno bez:*/
+  rewind(fp); /*ważne!!! przesuwa kursor na początek pliku */
  
-      printf("nic");
-    
-}
+   for(i=0;i<=glowne+poboczne-1;i++)
+    {
+      result = fgets(temp,100,fp);
+      if(result != NULL)
+	{
+	  if(temp[0]>=65 && temp[0]<=90)
+	    {
+	   miasta_glowne[i].main_city=(char*)malloc(strlen(temp)*sizeof(char)+1);      
+	   strcpy(miasta_glowne[i].main_city,temp);
+	/*   printf("Moje miasto: %s\n",miasta_glowne[i].main_city); */
+	   j=i;
+	    }
 
+	  else
+	    {
+	      sscanf(temp, "%d %s\n", &miasta_poboczne[i].distance,buff);
+	      miasta_poboczne[i].city=(char*)malloc(strlen(buff)*sizeof(char)+1);
+	      strcpy(miasta_poboczne[i].city,buff); 
+	      /*  printf("Moje miasto poboczne: %s i odl %d\n",miasta_poboczne[i].city, miasta_poboczne[i].distance);*/    
+	      miasta_poboczne[i].indeks=j; /*tu jest indeks do ktorego bede sie odwolywal*/
+            }
+	} 
+           
+    }
+
+   /* poki co bedzie tak bo nie za bardzo mam pomysl i czas */
+
+   printf("Podaj miasto glowne a ja wyswietle polaczenia");
+   scanf("%d",&wybor);
+
+
+
+
+
+
+
+}
+/*
+void wyswietl(struct struktura1 miasta_glowne, struct struktura2 miasta_poboczne)
+{
+  printf("A tera? %s", miasta_glowne[0].main_city);
+}  */
+ 
