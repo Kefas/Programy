@@ -9,11 +9,31 @@ struct element
   int ocena;
 };
 
+struct element *head;
+struct element *previous, *current;
+
+
+void dodaj_element();
+void wyswietl();
+void uwolnij_pamiec();
+
 int main(void)
 {
-  struct elemenent *head=NULL;
-  struct element *previous, *current;
+  
+  dodaj_element();  
+  wyswietl();
+  uwolnij_pamiec();
+  
+  return 0;
+  
+
+}
+
+void dodaj_element()
+{
+  
   char temp[255];
+  head=NULL;
   puts("Podaj pierwszy tytul filmu");
 
   while(gets(temp) != NULL && temp[0] != '\0')
@@ -33,7 +53,15 @@ int main(void)
       puts("Podaj nastepny tytul, pusty wiersz konczy program");
       previous=current;
     }
-  if(head==NULL)
+  
+ } 
+
+/* Nie wiem co jest.. wchodzi do funkcji ale nic nie zwraca. Poczytać o wskaźnikach i przekazaniach do funkcji */
+
+
+void wyswietl()
+{
+if(head==NULL)
     printf("Nie wypisano żadnych danych");
   else
     {
@@ -48,13 +76,14 @@ int main(void)
   printf("pa");
   
   current=head;
-  while(current!=NULL)   /*zwalnianie pamięci */
+}
+
+void uwolnij_pamiec()
+{
+while(current!=NULL)   /*zwalnianie pamięci */
     {
       previous=current;
       current=previous->next;
       free(previous);
     }
-  return 0;
-  
-
 }
