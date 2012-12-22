@@ -9,78 +9,85 @@ struct element
   int ocena;
 };
 
-struct element *head;
-struct element *previous, *current;
+/* VFI! dodaj_element musi zwracać adres heada! Dlaczego? Jeśli deklaracja heada jest w mainie to wtedy jego zasięg jest automatyczny a nie globalny co znaczy, że trzeba go przekazać do funkcji ponieważ funkcja go nie zobaczy. Trzeba go również zwrócić jeżeli zmieniony head ma działać w innych funkcjach, zwróc uwagę, że funkcja jest z operatorem dereferencji (*) co ustala zwracaną wartość jako wskaźnik. 
+Za kilka lat będę pewnie przerażony jakim jestem noobem, ale cóż. jestem.
+~Piotr z przeszłości */
 
-
-void dodaj_element();
-void wyswietl();
-void uwolnij_pamiec();
+struct element *dodaj_element(struct element *head);
+void wyswietl(struct element *head);
+void uwolnij_pamiec(struct element *head);
 
 int main(void)
 {
-  
-  dodaj_element();  
-  wyswietl();
-  uwolnij_pamiec();
+  struct element *head=NULL;
+  head=dodaj_element(head);
+  wyswietl(head);
+  uwolnij_pamiec(head);
   
   return 0;
   
 
 }
 
-void dodaj_element()
+struct element *dodaj_element(struct element *head)
 {
-  
+  struct element *previous, *current;
   char temp[255];
-  head=NULL;
+
   puts("Podaj pierwszy tytul filmu");
 
   while(gets(temp) != NULL && temp[0] != '\0')
     {
       current = (struct element *)malloc(sizeof(struct element));
+      
       if(head == NULL)  /*zachodzi tylko w przypadku początku*/
 	head=current;
       else                 /* dla każdej następnej */
-	previous->next=current;
+	previous->next=current; /*tworze dowiazanie do nastepnego*/
       
-      current->next=NULL; /*wskażnik z ostatniego elementu wskazuje na NULL */
+      current->next=NULL; /*wskażnik z ostatniego elementu wskazuje na NULL */     /*uzupelnianie aktualnego elementu listy*/
       strcpy(current->tytul,temp);
       puts("Podaj ocene");
       scanf("%d",&current->ocena);
+
       while(getchar() != '\n')
 	continue;
+
       puts("Podaj nastepny tytul, pusty wiersz konczy program");
       previous=current;
     }
-  
- } 
+  return head;
+} 
 
-/* Nie wiem co jest.. wchodzi do funkcji ale nic nie zwraca. Poczytać o wskaźnikach i przekazaniach do funkcji */
+/* Nie wiem co jest.. */
 
 
-void wyswietl()
+void wyswietl(struct element *head)
 {
-if(head==NULL)
+  struct element *current;
+  if(head==NULL)
     printf("Nie wypisano żadnych danych");
   else
     {
     printf("oto lista filmow\n");
-    current=head;
-    }
-  while(current!=NULL)
-    {
-      printf("Film %s Ocena: %d\n", current->tytul, current->ocena);
-      current = current->next;
+
+    current=head;   
+    
+    while(current!=NULL)
+     {
+       printf("Film %s Ocena: %d\n", current->tytul, current->ocena);
+       current = current->next;
+     }
     }
   printf("pa");
-  
-  current=head;
-}
 
-void uwolnij_pamiec()
+}
+void uwolnij_pamiec(struct element *head)
 {
-while(current!=NULL)   /*zwalnianie pamięci */
+ struct element *previous, *current;
+ current=head;
+
+ while(current!=NULL)   /*zwalnianie pamięci */
     {
       previous=current;
       current=previous->next;
