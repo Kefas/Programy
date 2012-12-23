@@ -26,17 +26,29 @@ struct head
 {
   struct glowne *glowne_head;
   struct poboczne *poboczne_head;
+  struct artykuly *artykuly_head;
+};
+
+struct artykuly
+{
+  long int id;
+  char *artykul;
+  struct artykuly *next_a;
 };
 
 typedef struct glowne struktura1;
 typedef struct poboczne struktura2;
 typedef struct head struktura3;
-
+typedef struct artykuly struktura4;
 
 struktura3 przepisz_miejscowosci(struktura1 *head_g,struktura2 *head_p, struktura3 head , FILE *miejscowosci);
 
+struktura3 przepisz_artykuly(struktura4 *head_a, struktura3 head, FILE *artykuly);
 
-/* Tworze listę miast głownych oraz osobną liste miast pobocznych, każde miasto głowne ma wskaźnik do pierwszego i ostatniego swojego miasta pobocznego*/
+
+
+void uwolnij(struktura3 head);
+
 /*Wskaźniki do pierwszych elementów listy glownych miast i pobocznych miast są przechowywane w typedef struct head struktura3 */
   
 
@@ -45,22 +57,30 @@ int main(void)
   struktura1 *head_g=NULL;
   struktura2 *head_p=NULL;
   struktura3 head;
-  FILE *miejscowosci;
+  struktura4 *head_a=NULL;
+  FILE *miejscowosci,*artykuly;
 
   miejscowosci = fopen("miejscowosci_v2.dat","r");
+  artykuly = fopen("artykuly.dat","r");
   if(miejscowosci==NULL)
     {
-      perror("Nie udało się otworzyć pliku lub plik jest pusty");
+      perror("Nie udało się otworzyć pliku miejscowosci_v2.dat  lub plik jest pusty");
       return 1;
     }
-
-  head.glowne_head=NULL;
-  head.poboczne_head=NULL;
-
+  if(artykuly==NULL)
+    {
+      perror("Nie udało sie utworzyc pliku artykuly.dat lub plik jest pusty");
+      return 1;
+    }
+  /*usunalem head.glowne_head=NULL*/
   head=przepisz_miejscowosci(head_g, head_p, head, miejscowosci);
-   
+  head=przepisz_artykuly(head_a,head,artykuly);
+
+  printf("%s",head.glowne_head->miasto_g);
+
+  uwolnij(head);
   fclose(miejscowosci);
-printf("Do widzenia\n");
+  printf("Do widzenia\n");
   return 0;
 }
 
@@ -133,26 +153,91 @@ struktura3 przepisz_miejscowosci(struktura1 *head_g,struktura2 *head_p, struktur
 	    }
    
     }
-  current_p=head_p;
+  /*  current_p=head_p;
   current_g=head_g;
   
   while(current_g!=NULL)
     {
-      printf("%s",current_g->miasto_g);
+      printf("%s",head_p->miasto_p);
       printf("Myhead: %s, %d\n",current_g->myhead->miasto_p,current_g->myhead->odleglosc);
       printf("Mytail: %s  %d\n",current_g->mytail->miasto_p,current_g->mytail->odleglosc);
  current_p=current_g->myhead;
        
-      /*
+      
       do
 	{
 	  printf("-%s - %d\n",current_p->miasto_p, current_p->odleglosc);
 	  current_p=current_p->next_p;
 	}while(current_p!=current_g->mytail);
-      */
+      
       current_g=current_g->next_m;
-      }
-  
+      }*/
+  head.glowne_head=head_g;
+  head.poboczne_head=head_p;
     
 return head;
+}
+
+struktura3 przepisz_artykuly(struktura4 *head_a, struktura3 head, FILE *artykuly)
+{
+  struktura4 *current_a,*previous_a;
+  char temp[255],buff[255], *result;
+
+  /* to pewnie mogę dać do funkcji */
+  current_a=(struktura4 *)malloc(sizeof(struktura4));
+  rewind(artykuly);
+  
+  while(result!=NULL)
+    {
+      result=fgets(temp,100,artykuly);
+
+      if(head_a==NULL)
+	{
+	  head_a=current_a;
+	}
+      else
+	{
+	  current_a=(struktura4 *)malloc(sizeof(struktura4));
+	  previous_a->next_a=current_a;
+	}
+      current_a->next_a=NULL; 
+      sscanf(temp, "%ld %[a-zA-Z0-9/- ]\n",&current_a->id,buff);      
+      current_a->artykul=(char *)malloc(sizeof(char)*strlen(buff)+1);
+      strcpy(current_a->artykul,buff);
+     
+      previous_a=current_a;
+    }
+  head.artykuly_head=head_a;
+
+  return head;
+}
+
+
+void uwolnij(struktura3 head)
+{
+struktura1 *previous_g, *current_g;
+struktura2 *previous_p, *current_p;
+struktura4 *previous_a, *current_a;
+
+ current_g=head.glowne_head;
+ current_p=head.poboczne_head;
+ current_a=head.artykuly_head;
+while(current_g!=NULL)
+  {
+    previous_g=current_g;
+    current_g=current_g->next_m;
+    free(previous_g);
+  }
+while(current_p!=NULL)
+  {
+    previous_p=current_p;
+    current_p=current_p->next_p;
+    free(previous_p);
+  }
+while(current_a!=NULL)
+  {
+    previous_a=current_a;
+    current_a=current_a->next_a;
+    free(previous_a);
+  }
 }
