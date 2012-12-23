@@ -19,7 +19,7 @@ void uwolnij_pamiec(struct element *head);
 
 int main(void)
 {
-  struct element *head=NULL;
+  struct element *head=NULL;  /* wyrzucam wskaźnik do current i previous do każdej funkcji, mogą być tu ale trzeba je przekazać */
   head=dodaj_element(head);
   wyswietl(head);
   uwolnij_pamiec(head);
@@ -29,7 +29,7 @@ int main(void)
 
 }
 
-struct element *dodaj_element(struct element *head)
+struct element *dodaj_element(struct element *head)  
 {
   struct element *previous, *current;
   char temp[255];
@@ -58,8 +58,6 @@ struct element *dodaj_element(struct element *head)
     }
   return head;
 } 
-
-/* Nie wiem co jest.. */
 
 
 void wyswietl(struct element *head)
