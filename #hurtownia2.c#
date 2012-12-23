@@ -249,6 +249,8 @@ struktura3 przepisz_artykuly(struktura4 *head_a, struktura3 head, FILE *artykuly
   return head;
 }
 
+/*Raczej działa dobrze, myhead i mytaile są OK coś knocę przy wyświetlaniu */
+
 struktura3 przepisz_hurtownie(struktura5 *head_h,struktura6 *head_s, struktura3 head,  FILE *hurtownie)
 {
   int i=0;
