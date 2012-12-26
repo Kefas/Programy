@@ -107,22 +107,22 @@ int main(void)
   zlecenia = fopen("zlecenie.dat","r");
   if(miejscowosci==NULL)
     {
-      perror("Nie udało się otworzyć pliku miejscowosci_v2.dat  lub plik jest pusty");
+      perror("miejscowosci_v2.dat");
       return 1;
     }
   if(artykuly==NULL)
     {
-      perror("Nie udało sie utworzyc pliku artykuly.dat lub plik jest pusty");
+      perror("artykuly.dat");
       return 1;
     }
   if(hurtownie==NULL)
     {
-      perror("Nie udało się otworzyć pliku hurtownie.dat lub plik jest pusty");
+      perror("hurtownie.dat");
       return 1;
     }
   if(zlecenia==NULL)
     {
-      perror("Nie udało się otworzyć pliku zlecenia.dat lub plik jest pusty");
+      perror("zlecenie.dat");
     }
 
   /*usunalem head.glowne_head=NULL*/
