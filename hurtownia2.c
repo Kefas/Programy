@@ -3,6 +3,9 @@
 #include <string.h>
 #include <time.h>
 
+#define x 7
+#define y 7
+
 /*Funkcja przepisz_miejscowosci przepisuje główne i pobocnze miasta do osobnych list, każde głowne miasto ma wskaźnik do pierwszego i ostatniego miasta pobocznego */
 
 
@@ -29,6 +32,7 @@ struct head
   struct artykuly *artykuly_head;
   struct hurtownie *hurtownie_head;
   struct stan *stan_head;
+  struct zlecenia *zlecenia_head;
 };
 
 struct artykuly
@@ -51,11 +55,19 @@ struct stan
   long int id_s;
   int ilosc;
   float cena;
-  int dzien;
-  int miesiac;
-  int rok;
+  int dzien, miesiac, rok;
   struct stan *next_s;
 };
+
+struct zlecenia
+{
+  char *przeznaczenie;
+  int nr_zamowienia_z,ilosc_z;
+  int dzien_z, miesiac_z, rok_z;
+  long int id_z;
+  struct zlecenia *next_z;
+};
+
 
 typedef struct glowne struktura1;
 typedef struct poboczne struktura2;
@@ -63,6 +75,7 @@ typedef struct head struktura3;
 typedef struct artykuly struktura4;
 typedef struct hurtownie struktura5;
 typedef struct stan struktura6;
+typedef struct zlecenia struktura7;
 
 struktura3 przepisz_miejscowosci(struktura1 *head_g,struktura2 *head_p, struktura3 head , FILE *miejscowosci);
 
@@ -70,6 +83,7 @@ struktura3 przepisz_artykuly(struktura4 *head_a, struktura3 head, FILE *artykuly
 
 struktura3 przepisz_hurtownie(struktura5 *head_h, struktura6 *head_s, struktura3 head,  FILE *hurtownie);
 
+struktura3 przepisz_zlecenia(struktura7 *head_z, struktura3 head, FILE *zlecenia);
 
 void uwolnij(struktura3 head);
 
@@ -84,11 +98,13 @@ int main(void)
   struktura4 *head_a=NULL;
   struktura5 *head_h=NULL;
   struktura6 *head_s=NULL;
-  FILE *miejscowosci,*artykuly,*hurtownie;
+  struktura7 *head_z=NULL;
+  FILE *miejscowosci,*artykuly,*hurtownie,*zlecenia;
 
   miejscowosci = fopen("miejscowosci_v2.dat","r");
   artykuly = fopen("artykuly.dat","r");
   hurtownie = fopen("hurtownie.dat","r");
+  zlecenia = fopen("zlecenie.dat","r");
   if(miejscowosci==NULL)
     {
       perror("Nie udało się otworzyć pliku miejscowosci_v2.dat  lub plik jest pusty");
@@ -104,15 +120,26 @@ int main(void)
       perror("Nie udało się otworzyć pliku hurtownie.dat lub plik jest pusty");
       return 1;
     }
+  if(zlecenia==NULL)
+    {
+      perror("Nie udało się otworzyć pliku zlecenia.dat lub plik jest pusty");
+    }
 
   /*usunalem head.glowne_head=NULL*/
   head=przepisz_miejscowosci(head_g, head_p, head, miejscowosci);
   head=przepisz_artykuly(head_a, head, artykuly);
   head=przepisz_hurtownie(head_h, head_s, head, hurtownie);
+  head=przepisz_zlecenia(head_z, head, zlecenia);
+
   /*
   printf("Główne miasto %s",head.glowne_head->miasto_g);
   printf("Główna hurtownia %s", head.hurtownie_head->hurtownia);
   */
+
+  /*----------------INTERFACE--------------------*/
+  printf("Witaj w programie wspomagającym obsługę hurtowni\n");
+  printf("Zaktualizowane dane po realizacji zleceń znajdują się w pliku hurtownie_stan1.dat\n Nazwy artykułów, dla których przewidywany termin przydatności jest krótszy niż %d dni znajduje się w pliku przeterminowane.dat\n Nazwy artykułów, dla których przewidywanytermin wyczerpania zapasu jest krótszy niż %d dni znajduję się w pliku koncowki.dat\n Plik zawierający dane o sposobie i koszcie realizacji zamówień znajduje się w pliku realizacja_zlecen.dat\n",x,y); 
+
   uwolnij(head);
   fclose(miejscowosci);
   fclose(artykuly);
@@ -345,12 +372,15 @@ struktura2 *previous_p, *current_p;
 struktura4 *previous_a, *current_a;
 struktura5 *previous_h, *current_h;
 struktura6 *previous_s, *current_s;
+struktura7 *previous_z, *current_z;
 
  current_g=head.glowne_head;
  current_p=head.poboczne_head;
  current_a=head.artykuly_head;
  current_h=head.hurtownie_head;
  current_s=head.stan_head;
+ current_z=head.zlecenia_head;
+
 while(current_g!=NULL)
   {
     previous_g=current_g;
@@ -381,4 +411,81 @@ while(current_s!=NULL)
     current_s=current_s->next_s;
     free(previous_s);
   }
+ while(current_z!=NULL)
+   {
+     previous_z=current_z;
+     current_z=current_z->next_z;
+     free(previous_z);
+   }
+}
+
+struktura3 przepisz_zlecenia(struktura7 *head_z, struktura3 head, FILE *zlecenia)
+{
+  int i=0;
+  struktura7 *previous_z, *current_z;
+  struktura4 *current_a;
+  char temp[255],buff[255], *result;
+  rewind(zlecenia);
+  current_z=(struktura7 *)malloc(sizeof(struktura7));
+
+  do
+    {
+      result = fgets(temp,100,zlecenia);
+      if((temp[2]>='0' && temp[2]<='9')||(temp[4]>='0' && temp[4]<='9')||(temp[3]>='0' && temp[3]<='9'))
+	{
+	  if(head_z==NULL)
+	    {
+	      head_z=current_z;
+	    }
+	  else
+	    {
+	      current_z=(struktura7*)malloc(sizeof(struktura7));
+	      previous_z->next_z=current_z;
+	    }
+	  current_z->next_z=NULL;
+	  
+	  sscanf(temp,"%d %d %d %d %[A-Za-z ]\n",&current_z->dzien_z,&current_z->miesiac_z,&current_z->rok_z,&current_z->nr_zamowienia_z,buff);
+	  current_z->przeznaczenie=(char*)malloc(sizeof(char)*strlen(buff)+1);
+	  strcpy(current_z->przeznaczenie,buff);
+
+	  previous_z=current_z;
+	  i=1;
+          printf("say what again\n");
+	}
+        else
+	{
+	  if(i==0)
+	  {
+	    current_z=(struktura7*)malloc(sizeof(struktura7));
+	    previous_z->next_z=current_z;
+	    current_z->next_z=NULL;
+	    /*przepisanie poprzednich informacji*/
+	    current_z->dzien_z=previous_z->dzien_z;
+	    current_z->miesiac_z=previous_z->dzien_z;
+	    current_z->rok_z=previous_z->rok_z;
+	    current_z->nr_zamowienia_z=previous_z->nr_zamowienia_z;
+	    current_z->przeznaczenie=(char*)malloc(sizeof(char)*strlen(previous_z->przeznaczenie));
+	    strcpy(current_z->przeznaczenie,previous_z->przeznaczenie);
+	    /*teraz wpisuje nowe*/
+	  }
+	    sscanf(temp,"%d %[A-Za-z //\\-.,0-9]\n",&current_z->ilosc_z, buff);
+	    /*szukanie ID zamowienia od razu*/ 
+	    current_a=head.artykuly_head;
+	    while(current_a!=NULL)
+	      {
+		if(strcmp(buff,current_a->artykul)==0)
+                current_z->id_z=current_a->id;
+        	 current_a=current_a->next_a;
+	      }
+	    printf("%ld, %s\n",current_z->id_z,buff);
+	    if(i==1)	    
+	    i=0;
+	    previous_z=current_z;
+	    /*TO DO: można dać waruna gdy nie znajdzie artykułu takiego*/ 	    	  
+	} 
+    
+    }while(result!=NULL);
+
+  head.zlecenia_head=head_z;
+  return head;
 }
