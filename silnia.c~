@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+
+int silnia(int n);
+
+int main(void)
+{
+  int n;
+  int wynik;
+
+  printf("To program do liczenia silni od 0 do 7, Podaj liczbę");
+  scanf("%d",&n);
+  wynik=silnia(n);
+  printf("wynik to %d", wynik);
+
+  return 0;
+}
+
+int silnia(int n)
+{
+  int i=1;
+  int wynik;
+
+  if(i<=n)
+    {
+    wynik=silnia(n);
+    i++;
+    }
+  return wynik;
+}

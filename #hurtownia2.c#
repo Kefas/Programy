@@ -5,6 +5,7 @@
 
 /*Funkcja przepisz_miejscowosci przepisuje główne i pobocnze miasta do osobnych list, każde głowne miasto ma wskaźnik do pierwszego i ostatniego miasta pobocznego */
 
+/*jeżeli drugie "słowo" z pliku zlecenie jest stringiem to oznacza, że linijka jest linijką artykulu a nie miasta */
 
 
 struct glowne
