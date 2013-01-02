@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 
 #define x 7
 #define y 7
@@ -148,6 +149,8 @@ int main(void)
   return 0;
 }
 
+/* Tworzę listę głownych miejscowosci i pobocznych miejscowosci. Są połączone w ten sposób że każde główne miasto ma wskaźnik myhead na pierwsze miasto poboczne swoje i ma wskaźnik mytail na pierwsze miasto poboczne z następnego, oczywiście poza ostatnim którego mytail to ostatnie miasto listy pobocznych*/
+
 struktura3 przepisz_miejscowosci(struktura1 *head_g,struktura2 *head_p, struktura3 head , FILE *miejscowosci)
 {
   int i=0;/* i jest mi potrzebne do ustalania myheada dla pierwszego */
@@ -161,11 +164,11 @@ struktura3 przepisz_miejscowosci(struktura1 *head_g,struktura2 *head_p, struktur
   current_p=(struktura2 *)malloc(sizeof(struktura2));
   
   /* head_g=current_g;*/
-  while(result!=NULL) /*może EOF? */
+  while(result!=NULL)
     { 
           result = fgets(temp,100,miejscowosci);
       
-	  if((temp[0]<=90 && temp[0]>=65) || (temp[0]<=122 && temp[0]>=97))
+	  if(isalpha(temp[0]))
 	    {
 	     if(head_g==NULL)
 	       {
@@ -200,7 +203,9 @@ struktura3 przepisz_miejscowosci(struktura1 *head_g,struktura2 *head_p, struktur
 	         previous_p->next_p=current_p;
 		 if(i==1)
 		   {
+		     /*head dla każdego*/
 		     current_g->myhead=current_p;
+		     
 		     i=0;
 		   }
                }    
@@ -211,31 +216,42 @@ struktura3 przepisz_miejscowosci(struktura1 *head_g,struktura2 *head_p, struktur
 	     current_p->miasto_p=(char*)malloc(sizeof(char)*strlen(buff)+1);
 	     strcpy(current_p->miasto_p,buff);
 	     
-             /*koniec pobocznych od głównego to ↓ */
-             current_g->mytail=current_p;
+             /*koniec pobocznych od głównego to ↓*/ 
+	     current_g->mytail=current_p;
 	     previous_p=current_p;
-	    }
-   
+        
+	    }   
     }
-  /*  current_p=head_p;
+    
+  current_p=head_p;
   current_g=head_g;
   
+  /*Tutaj ustawiam mytaile z wszystkich opróczostatniego na myheady następnych*/
+  while(current_g->next_m!=NULL)
+    {
+      current_g->mytail=current_g->next_m->myhead;
+      current_g=current_g->next_m;
+    }
+
+  current_g=head_g;
   while(current_g!=NULL)
     {
-      printf("%s",head_p->miasto_p);
+      /*    printf("%s\n",current_g->miasto_g);
       printf("Myhead: %s, %d\n",current_g->myhead->miasto_p,current_g->myhead->odleglosc);
-      printf("Mytail: %s  %d\n",current_g->mytail->miasto_p,current_g->mytail->odleglosc);
+      printf("Mytail: %s  %d\n",current_g->mytail->miasto_p,current_g->mytail->odleglosc);*/
+
+      printf("%s\n",current_g->miasto_g);
  current_p=current_g->myhead;
-       
       
-      do
+ 
+        while(current_p!=current_g->mytail && current_p!=NULL)
 	{
 	  printf("-%s - %d\n",current_p->miasto_p, current_p->odleglosc);
 	  current_p=current_p->next_p;
-	}while(current_p!=current_g->mytail);
+	  }
       
       current_g=current_g->next_m;
-      }*/
+    }
   head.glowne_head=head_g;
   head.poboczne_head=head_p;
     
@@ -288,7 +304,7 @@ struktura3 przepisz_hurtownie(struktura5 *head_h,struktura6 *head_s, struktura3 
   while(result!=NULL)
     {
       result = fgets(temp,100,hurtownie);
-      if((temp[0]>=65 && temp[0]<=90) || (temp[0]>=97 && temp[0]<=122))
+      if(isalpha(temp[0]))
 	{
 	  if(head_h==NULL)
 	    {
@@ -489,3 +505,22 @@ struktura3 przepisz_zlecenia(struktura7 *head_z, struktura3 head, FILE *zlecenia
   head.zlecenia_head=head_z;
   return head;
 }
+
+/* 
+1. Dopóki nazwa miasta do którego idzie zlecenie jest taka to rób:
+2. Szuka w której hurtowni jest pierwszy produkt.
+3. Czy jest go wystarczaj co du o?
+4. Je eli jest wi cej to który jest najbli ej ko ca wa no ci?
+5. Je eli jest w dwóch hurtowniach to tworz  drug  tablic  nazwy miast hurtowni.
+6. Tworz  tablic  nazw hurtowni które musz  odwiedzi .( 0. miasto przeznaczenia)
+7. Robie to samo dla reszty zamówie  z danego miasta i czasu.
+8. nic.
+
+9. Teraz szukam najkrótszej drogi mi dzy wszystkimi tymi miastami.
+10. Mam tablic  z nazwami miast.
+11. Dla pierwszego miasta(przeznaczenia) sprawdzam rekurencyjnie odleg o  i do wszystkich miast
+12. To które jest najbli ej jest wpisywane na drugim miejscu
+13. itd. a  do ko ca.
+14. Znajd  te  najkrótsz  drog  mi dzy ostatnim miastem a pierwszym
+15. Jak zrobi  tablic  znaków która przechowa to jak  drog  poruszam si ?
+*/
