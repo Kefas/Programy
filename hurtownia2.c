@@ -257,17 +257,18 @@ int main(void)
 		  kolejnosc[j+1]=kolejnosc[p];
 		  kolejnosc[p]=temp2;
 
-		  printf("tarcza szmato \n");
+		  printf("**** \n");
 		 
 		}
 	      else /*rekurencja*/
 		{
-		  printf("dupa %d %d\n",j,p);
+		  printf("!!! %d %d\n",j,p);
+		  /*
 		  miasto_docelowe=(char*)malloc(sizeof(char)*strlen(kolejnosc[j].miasto));
-		  miasto_aktualne=(char*)malloc(sizeof(char)*strlen(kolejnosc[p].miasto));
+		  miasto_aktualne=(char*)malloc(sizeof(char)*strlen(kolejnosc[p].miasto));*/
 
-		  strcpy(miasto_docelowe,kolejnosc[j].miasto);
-		  strcpy(miasto_aktualne,kolejnosc[p].miasto);
+		  miasto_docelowe=kolejnosc[j].miasto;
+		  miasto_aktualne=kolejnosc[p].miasto;
 		  kolejnosc=rekurencja(kolejnosc,miasto_docelowe,miasto_aktualne,head,odwiedzone,odleglosc,liczba_miast,j,p);/* trzeba po ustaleniu jednego połaczenia wykasować tablicę odwiedzonych i ustawić odleglosc na 0*/
 
 
@@ -301,16 +302,16 @@ struktura11 *rekurencja(struktura11 *kolejnosc,char *miasto_docelowe,char *miast
   int i=0,flaga;
 
   flaga=0;
-
+  /*jeżeli znajde takie miasto to koniec, trzeba dopisac tutaj porownywanie*/
   if(miasto_docelowe[0]==miasto_aktualne[0] && miasto_docelowe[1]==miasto_aktualne[1] && miasto_docelowe[2]==miasto_aktualne[2] && miasto_docelowe[3]==miasto_aktualne[3])
     {
       printf("takie same\n");
     }
-  else
+  else /*jeżeli nadal szukam miasta*/
     {
         i=0;
 	while(odwiedzone[i]!=NULL && i<=liczba_miast-1)/*rozpatruje tylko zapisane komorki*/
-	  {
+	  {/*sprawdzam czy sie nie wracam*/
 	    if((odwiedzone[i][0]==miasto_aktualne[0] && odwiedzone[i][1]==miasto_aktualne[1] && odwiedzone[i][2]==miasto_aktualne[2] && odwiedzone[i][3]==miasto_aktualne[3]) || (strcmp(odwiedzone[i],miasto_aktualne)==0))
 	    {
 	      printf("Tu już byłem %s\n",miasto_aktualne);
@@ -319,13 +320,13 @@ struktura11 *rekurencja(struktura11 *kolejnosc,char *miasto_docelowe,char *miast
 	  i++;
 	  }
 
-      if(flaga==0)
+	if(flaga==0) /*dopisuje aktualne miasto do tablicy miast odwiedzonych*/
 	{
 	  odwiedzone[i]=(char*)malloc(sizeof(char)*strlen(miasto_aktualne));
 	  strcpy(odwiedzone[i],miasto_aktualne);
-	  printf("rekurencja szmato %d\n",i);
+	  printf("rekurencja %d\n",i);
 	  current_g=head.glowne_head;
-	  while(current_g!=NULL)
+	  while(current_g!=NULL)/*ustalam aktualnego miasta w miastach gł*/
 	    {
 	      if(strcmp(current_g->miasto_g,miasto_aktualne)==0)
 		{		
@@ -333,24 +334,29 @@ struktura11 *rekurencja(struktura11 *kolejnosc,char *miasto_docelowe,char *miast
 		}
 	      current_g=current_g->next_m;
 	    }
+
 	  current_p=current_g->myhead;
 	  printf("dafuq %s %s\n",current_g->miasto_g,current_g->myhead->miasto_p);
+	  /*przeszukuje wszystkie możliwe połączenia*/
 	  while(current_p!=current_g->mytail) /*kiedy zmieniam miasto aktualne, wykrzacza się.*/
 	    {
-	      /*free(miasto_aktualne);
+	      /*
+	      free(miasto_aktualne);
 	      miasto_aktualne=(char*)malloc(sizeof(char)*strlen(current_p->miasto_p));
 	      strcpy(miasto_aktualne,current_p->miasto_p);
-	      /*miasto_aktualne=(char*)malloc(sizeof(char)*strlen(current_p->miasto_p));
-		strcpy(miasto_aktualne,current_p->miasto_p);*/
+	      */
+	      /*miasto_aktualne=current_p->miasto_p;*/
 	      printf(" current p %s,miasto_aktualne %s\n",current_p->miasto_p,miasto_aktualne);
 
 	      
               kolejnosc=rekurencja(kolejnosc,miasto_docelowe,miasto_aktualne,head,odwiedzone,odleglosc,liczba_miast,j,p);
+
 	      current_p=current_p->next_p;
 	    }
 	}
 
     }
+
   i=0;
   while(odwiedzone[i]!=NULL && i<=liczba_miast-1)
     {
