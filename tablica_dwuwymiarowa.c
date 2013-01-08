@@ -15,7 +15,8 @@ int main(void)
  *(tablica+1)=(char*)malloc(sizeof(char)*strlen(slowo2));
  strcpy(tablica[1],slowo2);
  printf("%s,%s\n",tablica[0],tablica[1]);
-  
+ 
+ free(tablica); 
 
 return 0;
 }

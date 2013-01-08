@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct struktura
+{
+  char *tablica;
+  int liczba;
+};
+
+typedef struktura struktura;
+
+int main(void)
+{
+  struktura *temp;
+  int i;
+  char *slowo="ziemia";
+
+  temp=(struktura*)malloc(sizeof(struktura)*3);
+  for(i=0;i<3;i++)
+    {
+      temp[i].tablica=(char*)malloc(sizeof(char)*strlen(slowo));
+      strcpy(temp[i].tablica,slowo);
+    }
+  free(temp);
+
+
+
+
+
+
+  return 0;
+}
