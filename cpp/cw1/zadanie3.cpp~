@@ -1,0 +1,26 @@
+#include <iostram>
+#define x 20
+
+using namespace std;
+
+char* rekurencja(char slowo[x], char wspak[x], int r);
+
+int main(int argv, char* arg[])
+{
+  char slowo[x], wspak[x];
+
+  cout << "Program do wyswietlania napisu wspak w sposob rekurencyjny" <<endl;
+  cout << "Prosze wpisac jakies slowo: ";
+  cin >> slowo;
+
+  wspak=odwroc(slowo, wspak, x);
+
+  cout << " Slowo: " << slowo << "obrocone na wspak wyglada tak: " << wspak <<endl;
+
+  return 0;
+}
+
+
+
+
+

@@ -1,0 +1,38 @@
+#include <iostream>
+
+using namespace std;
+
+bool sprawdz(char[10] slowo);
+
+int main(int argv, char* arg[])
+{
+  char slowo[10],c='3';
+
+  while (c=='1' || c=='2')
+    {
+      cout << "1. Wyjscie" << endl << "2. sprawdz palindrom";
+      c=getchar();
+      if (c==1) return 0;
+      if (c==2)
+	{
+	  cout << "Program do sprawdzania czy dane slowo jest palindromem" <<endl;
+	  cout << "Prosze wpisac slowo: ";
+	  cin >> slowo;
+	  if(sprawdz(slowo)==true) cout << "Slowo "<<slowo<<" to palindrom"<<endl;
+	}
+    }
+}
+
+bool sprawdz(char[10] slowo)
+{
+  int x;
+
+  x=sizeof(slowo);
+
+  for(i=0;i<=x;i++)
+    {
+      if (slowo[i]!=slowo[x-i])
+	return false;
+      else return true;
+    }
+}

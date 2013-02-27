@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+
+int **pomnoz(int tablica[][10]);
+void wyswietl(int tablica[][10]);
+
+
+int main(int argv, char *arg[])
+{
+  int tablica[10][10];
+
+  cout << "Tabliczka mnozenia" << endl;
+
+  tablica=pomnoz(tablica);
+  wyswietl(tablica);
+
+  return 0;
+}
+
+int **pomnoz(int tablica[][10])
+{
+
+  for(y=1;y<=10;y++)
+    for(x=1;x<=10;x++)
+      {
+	tablica[x-1][y-1]=x*y;
+      }
+  return tablica;
