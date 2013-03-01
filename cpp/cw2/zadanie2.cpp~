@@ -1,0 +1,12 @@
+#include <iostream.h>
+using namespace std;
+ 
+int * potega(int liczba, int potega){
+  int* wynik = &liczba;
+  for(int i = 1; i < potega; i++)
+    *wynik *= liczba;
+  return wynik;
+}
+int main(void){
+  cout << *(potega(3,3)) << endl;
+}
