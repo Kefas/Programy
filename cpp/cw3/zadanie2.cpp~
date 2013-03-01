@@ -1,0 +1,11 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main(int argv, char *argc[])
+{
+
+  cout << argv << " " << argc[0] << " " << argc[1] <<" "<< argc[2]<<" "<<argc[3];
+  return 0;
+}

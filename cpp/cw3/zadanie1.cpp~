@@ -1,0 +1,7 @@
+#include <iostream>
+
+using namespace std;
+
+int main(int argv, char *argc[])
+{
+  cout << "Program do alokacji pamięci dla tablicy R2" << endl;
