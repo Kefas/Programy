@@ -3,8 +3,8 @@
 
 using namespace std;
 
-void odszyfruj();
-void zaszyfruj();
+void odszyfruj(std::wejscie,std::wyjscie);
+void zaszyfruj(std::wejscie,std::wyjscie);
 
 int main(int argv, char *argc[])
 {
@@ -16,10 +16,10 @@ int main(int argv, char *argc[])
     cout << "Nie można otworzyć pliku!" << endl;
   
   if (*(argc[3])==1)
-    odszyfruj();
+    odszyfruj(wejscie, wyjscie);
 
   if (*(argc[3])==0)
-    zaszyfruj();  
+    zaszyfruj(wejscie, wyjscie);  
 
 
   wejscie.close();
@@ -27,12 +27,15 @@ int main(int argv, char *argc[])
   return 0;
 }
 
-void odszyfruj()
+void odszyfruj(std::wejscie, std::wyjscie)
 {
+  char c;
+  while(wejscie >> c)
+    cout << c;
 
 
 }
 
-void zaszyfruj()
+void zaszyfruj(std::wejscie,std::wyjscie)
 {
 }
