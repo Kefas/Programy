@@ -1,23 +1,27 @@
 #include <iostream>
 #include <fstream>
 
+/*
+DO POPRAWY: przesyłanie deskryptora pliku do funkcji, podział na funkcje
+*/
+
 using namespace std;
 
 void stworz_szyfr(char tablica[][6]);
 
 int main(int argv, char *argc[])
 {
-  int i,j,k;
+  int i,j,k,x,y;
   char polibusz[6][6],bufor[65];
   
   stworz_szyfr(polibusz);
 
   ifstream wejscie(argc[1]);
-  ofstream wyjscie(argc[2],ios_base::in);
+  ofstream wyjscie(argc[2],ios_base::in|ios_base::trunc);
   if(!wejscie)
-    cout << "Nie można otworzyć pliku!" << endl;
+    cout << "Nie można otworzyć pliku1!" << endl;
   if(!wyjscie)
-    cout << "Nie można otworzyć pliku!" << endl;  
+    cout << "Nie można otworzyć pliku2!" << endl;  
 
   if (*(argc[3])=='1')
     {
@@ -43,14 +47,18 @@ int main(int argv, char *argc[])
       while(wejscie >> bufor)
 	{
 	  i=0;
-	  //cout << bufor[i];
-	  //while(bufor[i])
-	  //{
-	      //int x=bufor[i]-48;
-	      //int y=bufor[i]-48;
-	      //wyjscie << polibusz[x][y];
-	  //  i++;
-	  //}
+	  cout << bufor[i];
+	  while(bufor[i])
+	  {
+	    if(i==0)
+	      x=bufor[i]-48;
+	    if(i==1)
+	      {
+	      y=bufor[i]-48;
+	      wyjscie << polibusz[x][y];
+	      }
+	      i++;
+	  }
 	}
 
     }  
