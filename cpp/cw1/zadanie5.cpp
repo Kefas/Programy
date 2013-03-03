@@ -1,4 +1,4 @@
-#include <iostream> // Funkcje sa zagniezdzone i nie bardzo kminie jak sie tablice  dwuwymiarowe przesuwa
+#include <iostream> // Funkcje sa zagniezdzone i nie bardzo kminie jak sie tablice  dwuwymiarowe przesyla
 
 using namespace std;
 
