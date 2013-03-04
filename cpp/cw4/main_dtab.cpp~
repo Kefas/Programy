@@ -1,0 +1,12 @@
+#include <iostream>
+#include "dtab.cpp"
+#include "dtab.h"
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+
+  DTab tablica();
+  return 0;
+}
