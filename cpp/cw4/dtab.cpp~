@@ -1,0 +1,42 @@
+#include <iostream>
+#include "dtab.h"
+
+using namespace std;
+
+
+void DTab::resize(int newSize);
+{
+  if (length>=newSize) cout << "Rozmiar jest mniejszy od tablicy";
+  if (length<newSize)
+    {
+      double *nowa=new double [newSize];
+      if (length>0 && length < newSize)
+	{ 
+	  for(int i=0;i<lenght;i++)
+	    nowa[i]=tab[i];
+	  tab=nowa;
+	  nowa=NULL;
+	} 
+};
+
+
+  DTab::DTab()length(0)
+{
+  resize(10);
+};
+
+DTab::DTab(int length)
+{
+  double *tablica=new double [length];
+};
+
+
+  
+
+
+int main(int argc, char *argv[])
+{
+  return 0;
+}
+
+
