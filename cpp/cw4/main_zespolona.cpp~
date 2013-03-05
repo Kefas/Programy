@@ -1,0 +1,16 @@
+#include <iostream>
+#include "zespolona.h"
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+  Zespolona pierwsza(6,2),druga(4,4),wynik_add,wynik_div,wynik_mul;
+  wynik_add=pierwsza.add(pierwsza,druga);
+  wynik_div=pierwsza.div(pierwsza,druga);
+  wynik_mul=pierwsza.mul(pierwsza,druga);
+  //cout << "Ich suma to :" << pierwsza.add(pierwsza,druga) << endl;
+  cout << "Wynik dodawania " <<  wynik_add.getRe() << " a dzielenia: " << wynik_div.getRe() << " mnozenia: " <<wynik_mul.getRe()<< endl;
+
+  return 0;
+}

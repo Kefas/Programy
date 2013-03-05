@@ -1,0 +1,16 @@
+#ifndef ZESPOLONA_H
+#define ZESPOLONA_H
+
+class Zespolona{
+  
+  int re;
+  int im;
+ 
+ public:
+ 
+  Zespolona(int x, int y){ re=x, im=y};
+ Zespolona():re(0),im(0){};
+  ~Zespolona();
+
+
+
