@@ -1,0 +1,18 @@
+
+#ifndef KWADRAT_H
+#define KWADRAT_H
+
+#include "punkt.h"
+
+class Kwadrat {
+ private:
+  Punkt A,B,C,D; 
+ public:
+  Kwadrat();
+  ~Kwadrat();
+
+  double obwod(A,B,C,D);
+  double pole(A,B,C,D);
+
+};
+#endif

@@ -14,17 +14,20 @@ void DTab::resize(int newSize)
 	  for(int i=0;i<length;i++)
 	    nowa[i]=tab[i];
 	  tab=nowa;
-	  
 	} 
+      if (length==0 && length < newSize)
+	tab=nowa;
     }
 }
 
 void DTab::add(double element)
 {
-  resize(length+1);
-  tab[length]=element;
-  length++;
-  //cout << tab[length] << "!!!!!!!!!" << endl;
+  if(tab!=NULL)
+    {
+      resize(length+1);
+      tab[length]=element;
+      length++;
+    }
 }
 
 double DTab::get(int index)
@@ -39,7 +42,7 @@ void DTab::set(double element, int index)
 
 void DTab::print()
 {
-  cout << length;
+  cout << "Tablica o dlugosci " <<length;
   for(int i=0;i<length;i++)
     cout <<" "<< tab[i] << " ";
   cout << endl;
@@ -51,19 +54,22 @@ DTab::DTab():length(0),last(0),tab(0)
   cout << "Tworze tablice 10"<< endl;
   resize(10);
   length=10;
+  last=9;
 }
 
 
-DTab::DTab(int length):last(0)
+DTab::DTab(int initLength):last(0),tab(0),length(0)
 {
-  cout << "Tworze tablice o rozmiarze " << length << endl;
-  resize(length);
+  cout << "Tworze tablice o rozmiarze " << initLength << " " << endl;
+  resize(initLength);
+  length=initLength;
+  last=initLength-1;
 }
 
 DTab::~DTab()
 {
   cout << "destruktor" <<endl;
-  if(!tab) delete []tab;
+  if(tab!=NULL) delete []tab;
 }
 
 

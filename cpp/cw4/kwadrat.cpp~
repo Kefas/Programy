@@ -1,0 +1,41 @@
+#include <iostream>
+#include "kwadrat.h"
+#include <math.h>
+
+using namespace std;
+
+double Kwadrat::obwod(Punkt A, Punkt B, Punkt C, Punkt D)
+{
+  double x,y,z,wynik;
+
+  x=sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));
+  wynik=x;
+  y=sqrt(pow(A.x-C.x,2)+pow(A.y-C.y,2));
+  if (y<x) wynik=y;
+  z=sqrt(pow(A.x-D.x,2)+pow(A.y-D.y,2));
+  if (z<x || z<y) wynik=z;
+
+  return 4*wynik;
+}
+
+double Kwadrat::pole(Punkt A, Punkt B, Punkt C, Punkt D)
+{
+  double x,y,z,wynik;
+
+  x=sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));
+  wynik=x;
+  y=sqrt(pow(A.x-C.x,2)+pow(A.y-C.y,2));
+  if (y<x) wynik=y;
+  z=sqrt(pow(A.x-D.x,2)+pow(A.y-D.y,2));
+  if (z<x || z<y) wynik=z;
+
+  return pow(wynik,2);
+}
+
+Kwadrat::Kwadrat()
+    {
+      A=(10,10);
+      B=(0,10);
+      C=(10,0);
+      D=();
+    }

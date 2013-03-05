@@ -3,7 +3,7 @@
 #define PUNKT_H
  
 class Punkt{
-  private:
+  public:
     double x, y;
   public:
     //Konstruktor bezparametrowy
