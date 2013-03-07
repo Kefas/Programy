@@ -1,0 +1,49 @@
+\documentclass[a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+
+\begin{document}
+fuck this shit
+
+
+\begin{table}[ht]
+\begin{center}
+\catption{KIERUNKI ZAMAWIANE}
+\begin{longtable}{|p{6cm}|p{1,2cm}|p{1,2cm}|p{1,2cm}|p{1,2cm}|}
+
+\hline
+
+\centerline{Kierunki zamawiane} & \multicolumn{2}{|c|}{Studia} & \multicolumn{2}{|c|}{Studia}\\
+ & \multicolumn{2}{|c|}{stacjonarne} & \multicolumn{2}{|c|}{niestacjonarne}\\
+\cline{2-5}
+
+ & I & II & I & II\\
+ & stopień & stopień & stopień & stopień\\
+
+\hline
+\multicolumn{5}{|c|}{Wydział górnictwa i geoinżynierii}\\
+\hline
+Inżynieria środowiska & & * & & \\
+\hline
+\multicolumn{5}{|c|}{Wydział Geologii, Geofizyki i Ochrony Środowiska}\\
+\hline
+Ochrona środowiska & & * & &\\
+\hline
+Inżynieria środowiska & & * & & \\
+\hline
+\multicolumn{5}{|c|}{Wydział Geodezji Górniczej i Inżynierii Środowiska}\\
+\hline
+Inżynieria środowiska & & * & & \\
+\hline
+\multicolumn{5}{|c|}{Wydział Fizyki i Informatyki Stosowanej}\\
+\hline
+Fizyka techniczna & & * & &\\
+\hline
+Fizyka medyczna & & * & & \\
+\hline
+\end{longtable}
+\end{center}
+\end{table}
+\end{document}
