@@ -4,13 +4,12 @@
 #include "lista.h"
 
 using namespace std;
-
-Lista::Lista(string temp)
+Lista::Lista(int y)
 {
-  Wezel current;
-  current->temp=temp;
-  current->next=0;
-  this->head=current;
+  this->next=0;
+  x=y;
+    
 }
+
 
 
