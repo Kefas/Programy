@@ -1,0 +1,17 @@
+#include <iostream>
+#include "lista.h"
+
+using namespace std;
+
+Lista::Lista(string temp)
+{
+  strcpy(this->temp,temp);
+  *next=0;
+}
+
+Lista::Lista(Lista &lista)
+{
+  strcpy(this->temp,lista.temp);
+  lista->next=this;
+  this->next=0;
+}

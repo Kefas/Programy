@@ -1,0 +1,28 @@
+#include <iostream>
+
+
+#ifndef LISTA_H
+#define LISTA_H
+
+class Lista {
+  int liczba;
+  Lista *head;
+  Lista *next;
+ public:
+  Lista(int x=0);
+  ~Lista();
+
+  void setData(int x){ocena=x;};
+  int getData(){return ocena;};  
+  void appendFirst(int x);
+  void appendLast(int x);
+  void insert(int x);
+  void remove(void);
+  void removeFirst(void);
+  void removeLast(void);
+  Lista *getNext(void);
+  void setNext(Lista *next);
+
+}
+
+#endif

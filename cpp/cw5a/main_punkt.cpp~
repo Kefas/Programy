@@ -1,0 +1,16 @@
+#include <iostream>
+#include "punkt.cpp"
+
+using namespace std;
+
+
+int main(void){
+  Punkt p,p2(10,20),p3; 
+  p.setX(5).setY(10).wyswietl();
+  p3(p);
+  return 0;  
+
+    
+}
+
+
