@@ -12,19 +12,22 @@ class Lista {
   int ilosc;  
  public:
   Lista();
+  Lista(const Lista &org);
   ~Lista();
 
-  void add(int y);
+  void add(string str);
   void del(void);
+  void print(void);
 
 };
 
 class Wezel{
-  int x;
+  
  public:
+  string temp;
   Wezel *next;
-  Wezel(int y=0);
-  Wezel(Wezel &kopia);
+  Wezel(string str="nic");
+  //Wezel( Wezel &kopia);
   ~Wezel();
   
 };
