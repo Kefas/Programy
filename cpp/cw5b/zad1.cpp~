@@ -1,0 +1,4 @@
+#include <iostream>
+#include "zad1.h"
+#include <string.h>
+
