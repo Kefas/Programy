@@ -9,7 +9,8 @@ class Wezel;
 
 class Lista {
   Wezel *head;
-  int ilosc;  
+  int ilosc;
+  friend class Wezel;  
  public:
   Lista();
   Lista(const Lista &org);
@@ -22,10 +23,10 @@ class Lista {
 };
 
 class Wezel{
-  
- public:
   string temp;
   Wezel *next;
+  friend class Lista;
+ public:
   Wezel(string str="nic");
   //Wezel( Wezel &kopia);
   ~Wezel();
