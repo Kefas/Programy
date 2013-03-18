@@ -2,7 +2,8 @@
 #include "punkt.h"
 #include <math.h>
 #include <iostream>
- 
+#include <iomanip> 
+
 using namespace std;
  
 /* Aby wskazać, ze definicja funkcji dotyczy metody danej klasy
@@ -11,6 +12,15 @@ using namespace std;
  
 //Specjalna inicjalizacja zmiennych. Zmienne są inicjowane
 //nim zostanie wywołane ciało konstruktora
+
+istream& operator>>(istream & input, Punkt& p){
+   input.ignore();    // Ignoruj nawias
+   input >> p.x;
+   input.ignore();    // Ignoruj przecinek
+   input >> p.y;
+   input.ignore();    // Ignowruj nawias
+   return input;      // Umożliwia cin >> a >> b >> c;
+}
 Punkt::Punkt():x(0),y(0){
   cout << "Konstruktor bezparametrowy" << endl;
 }

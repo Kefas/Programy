@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -29,6 +30,7 @@ class Punkt{
     double getY(){return y;}
     Punkt & setX(double x);
     Punkt & setY(double y);
+    friend istream& operator>>(istream &, Punkt&);
 };
  
 #endif
