@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 
 //cout << "Ich suma to :" << pierwsza.add(pierwsza,druga) << endl;
-  cout << "Wynik dodawania " <<  wynik_add.getRe() << "oraz" << wynik_add1.getRe() << " a dzielenia: " << wynik_div.getRe()<< "oraz" << wynik_div1.getRe() << " mnozenia: " <<wynik_mul1.getRe()<< "oraz" << wynik_mul1.getRe() <<" odejmowanie: " << wynik_sub.getRe()<< "oraz" << wynik_sub1.getRe() << endl;
+  cout << "Wynik dodawania " <<  wynik_add.getRe() << "oraz" << wynik_add1.getRe() << " a dzielenia: " << wynik_div1.getRe()<< "oraz" << wynik_div1.getRe() << " mnozenia: " <<wynik_mul1.getRe()<< "oraz" << wynik_mul1.getRe() <<" odejmowanie: " << wynik_sub.getRe()<< "oraz" << wynik_sub1.getRe() << endl;
 
   cout << "pierwsza+=pierwsza : " << pierwsza.getRe() <<  "druga-=druga" << druga.getRe()<<endl; 
 

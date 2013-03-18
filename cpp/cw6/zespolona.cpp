@@ -47,16 +47,16 @@ Zespolona Zespolona::operator-(const Zespolona A)
 Zespolona operator/(const Zespolona A,const Zespolona B)
 {
   Zespolona C;
-  C.re=A.re/B.re;
-  C.im=A.im/B.im;
+  C.re=((A.re*B.re - A.im*B.im)/(pow(B.re,2) + pow(B.im,2)));
+  C.im=((A.im*B.re - A.re*B.im)/(pow(B.re,2) + pow(B.im,2)));
   return C;
 }
 
 Zespolona operator*(const Zespolona A,const Zespolona B)
 {
   Zespolona C;
-  C.re=A.re*B.re;
-  C.im=A.im*B.im;
+  C.re=(A.re*B.re - A.im*B.im);
+  C.im=(A.im*B.im + A.re*B.re);
   return C;
 }
 

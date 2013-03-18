@@ -30,7 +30,8 @@ class Punkt{
     double getY(){return y;}
     Punkt & setX(double x);
     Punkt & setY(double y);
-    friend istream& operator>>(istream &, Punkt&);
+    friend istream& operator>>(istream&, Punkt&);
+    friend ostream& operator<<(ostream&, Punkt&);
 };
  
 #endif

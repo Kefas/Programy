@@ -8,7 +8,7 @@ int main(void){
   Punkt p,p2(10,20);
   p.wyswietl();
   cin >> p;
-  p.wyswietl();
+  cout << p;
   p2.wyswietl();
   return 0;  
 

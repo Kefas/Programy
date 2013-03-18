@@ -21,6 +21,12 @@ istream& operator>>(istream & input, Punkt& p){
    input.ignore();    // Ignowruj nawias
    return input;      // Umożliwia cin >> a >> b >> c;
 }
+ostream& operator<<(ostream& output, Punkt& p)
+{
+  output <<"(" <<p.x<<";"<<p.y<<")";
+  return output;
+}
+
 Punkt::Punkt():x(0),y(0){
   cout << "Konstruktor bezparametrowy" << endl;
 }
