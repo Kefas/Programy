@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+
+#ifndef KULA_H
+#define KULA_H
+
+class Kula: public Kolo{
+ protected:
+  double z;
+ public:
+ Kula(double x,double y, double _z, double r):Kolo(x,y,r){ z=_z;};
+  ~Kula(){cout<<"destruktor kula" << endl;};
+  double Pole();
+};
+
+#endif

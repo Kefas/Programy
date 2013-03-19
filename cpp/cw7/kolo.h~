@@ -1,0 +1,16 @@
+#include <iostream>
+using namepsace std;
+
+#ifndef KOLO_H
+#define KOLO_H
+
+class Kolo{
+ protected:
+  double x,y,r;
+ public:
+  Kolo(double _x, double _y,double _r){x=_x; y=_y; z=_z;};
+  ~Kolo(){cout << "destruktor kolo" << endl;};
+  double pole();
+};
+
+#endif
