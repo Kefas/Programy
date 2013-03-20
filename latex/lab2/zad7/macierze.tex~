@@ -1,0 +1,42 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+\begin{document}
+Istnieje scisły zwiazek między rozkładem macierzy A na macierze L i U a metodą eliminacji Gaussa.Można wykazać, że elementy kolejnych kolumn macierzy L sa równe współczynnikom przez które mnożone są w kolejnych krokach wiersze układu równań celem dokonania eliminacji niewiadomych w odpowiednich kolumnach. Natomiast macierz U jest równa macierzy trójkątnej uzyskanej w eliminacji Gaussa.
+\begin{equation*}
+[A\vert b]=\left[ \begin{array}{llll}
+2 & 2 & 4 & 4\\
+1 & 2 & 2 & 4\\
+1 & 4 & 1 & 1\\
+\end{array}
+\right] = \left[ \begin{array}{llrr}
+2 & 2 & 4 & 4\\
+0 & 1 & 0 & 2\\
+0 & 4 & -1 & -1\\
+\end{array}
+\right]= \left[ \begin{array}{llrr}
+2 & 2 & 4 & 4\\
+0 & 1 & 0 & 2\\
+0 & 0 & -1 & -7\\
+\end{array}
+\right]
+\end{equation*}
+\begin{equation*}
+L=\left[ \begin{array}{lll}
+1 & 0 & 0\\
+\frac{1}{2} & 1 & 0\\
+\frac{1}{2} & 3 & 1\\
+\end{array} \right] \qquad
+U=\left[ \begin{array}{llrr}
+2 & 2 & 4 & 4\\
+0 & 1 & 0 & 2\\
+0 & 0 & -1 & -7\\
+\end{array} \right] \\
+\end{equation*}
+\end{document}

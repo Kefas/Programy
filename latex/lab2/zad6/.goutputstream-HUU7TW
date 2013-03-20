@@ -1,0 +1,24 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin2]{inputenc}
+\usepackage[polish]{babel}
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage{anysize}
+\usepackage{math}
+\usepackage{amsfonts}
+
+\marginsize{1.5cm}{1.5cm}{1.5cm}{1.5cm}
+\sloppy 
+
+\theoremstyle{definition}
+\newtheorem{df}{Definicja}
+
+
+\begin{document}
+
+% \maketitle
+
+\section{Zbiory rozmyte}
+
+Poj
