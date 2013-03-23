@@ -1,0 +1,28 @@
+#include <iostream>
+#include "zespolona.h"
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+  Zespolona pierwsza(6,2),druga(4,4),wynik_add,wynik_add1,wynik_div1,wynik_div,wynik_mul,wynik_sub,wynik_sub1,wynik_mul1;
+  wynik_add=pierwsza.add(pierwsza,druga);
+  wynik_add1=pierwsza+druga;
+  wynik_div=pierwsza.div(pierwsza,druga);
+  wynik_div1=pierwsza/druga;
+  wynik_mul=pierwsza.mul(pierwsza,druga);
+  wynik_mul1=pierwsza*druga;
+  wynik_sub=pierwsza.sub(pierwsza,druga);
+  wynik_sub1=pierwsza-druga;
+
+  pierwsza+=pierwsza;
+  druga-=druga;  
+
+
+//cout << "Ich suma to :" << pierwsza.add(pierwsza,druga) << endl;
+  cout << "Wynik dodawania " <<  wynik_add.getRe() << "oraz" << wynik_add1.getRe() << " a dzielenia: " << wynik_div1.getRe()<< "oraz" << wynik_div1.getRe() << " mnozenia: " <<wynik_mul1.getRe()<< "oraz" << wynik_mul1.getRe() <<" odejmowanie: " << wynik_sub.getRe()<< "oraz" << wynik_sub1.getRe() << endl;
+
+  cout << "pierwsza+=pierwsza : " << pierwsza.getRe() <<  "druga-=druga" << druga.getRe()<<endl; 
+
+  return 0;
+}
