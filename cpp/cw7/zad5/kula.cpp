@@ -6,12 +6,13 @@
 
 using namespace std;
 
-double Kolo::pole1()
+double Kolo::pole()
 {
   return (PI * pow(this->r,2));
 }
 
-double Kula::pole2()
+double Kula::pole()
 {
   return (4*PI*pow(this->r,2));
 }
+
