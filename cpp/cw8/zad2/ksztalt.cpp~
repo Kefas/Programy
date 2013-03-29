@@ -1,0 +1,19 @@
+#include <iostream>
+#include "ksztalt.h"
+
+using namespace std;
+
+void Kolo::rysuj()
+{
+  cout << "Kolko" << endl;
+}
+
+void Trojkat::rysuj()
+{
+  cout << "Trojkat" << endl;
+}
+
+void Kwadrat::rysuj()
+{
+  cout << "Kwadrat" << endl;
+}
