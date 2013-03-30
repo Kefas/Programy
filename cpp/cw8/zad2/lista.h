@@ -12,7 +12,6 @@ class List
 {
  protected:
   Node *head;
-  int amount;
   friend class Node;
  public:
   List();

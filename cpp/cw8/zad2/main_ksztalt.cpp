@@ -10,7 +10,9 @@ int main(int argc, char *argv[])
 {
 srand((int)time(NULL));
   List temp;
-  temp.add();
+  for (int i=0;i<10;i++)
+    temp.add();
+  temp.print();
   
 
   return 0;

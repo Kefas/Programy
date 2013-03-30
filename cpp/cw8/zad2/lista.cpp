@@ -8,7 +8,6 @@ using namespace std;
 List::List()
 {
   this->head=NULL;
-  amount=0;
   cout << "Constructor List" <<endl;
 }
 
@@ -31,7 +30,7 @@ Node::Node()
   int x=rand()%3;
   if (x==0)
     {
-      Ksztalt *figura = new Kolo(rand()%10 +2);
+      Ksztalt *figura = new Kolo(rand()%10 +1);
       this->shape=figura;
     }
   else if(x==1)
@@ -44,20 +43,19 @@ Node::Node()
       Ksztalt *figura = new Kwadrat(rand()%10+1);
       this->shape=figura;
     }
-  cout << x;
 }
 
 Node::~Node()
 {
   cout << "destruktor Node" << endl;
-  if(shape!=NULL)  
+  if(!shape)  
     delete shape;
 }
 
 void List::add()
 {
-  Node *current;
-  if (head==NULL)
+  Node *current = new Node();
+  if (!head)
     {
       head=current;
       current->next=NULL;
@@ -67,14 +65,13 @@ void List::add()
       current->next=head;
       head=current;
     }
-  amount++;
 }
 
 void List::print()
 {
   Node *current;
   current=head;
-  if(current!=NULL)
+  while(!current)
     {
       current->shape->rysuj();
       current=current->next;
