@@ -48,7 +48,7 @@ Node::Node()
 Node::~Node()
 {
   cout << "destruktor Node" << endl;
-  if(!shape)  
+  if(shape!=NULL)  
     delete shape;
 }
 
@@ -71,7 +71,7 @@ void List::print()
 {
   Node *current;
   current=head;
-  while(!current)
+  while(current!=NULL)
     {
       current->shape->rysuj();
       current=current->next;
