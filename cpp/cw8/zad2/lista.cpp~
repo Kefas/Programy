@@ -1,0 +1,59 @@
+#include <iostream>
+#include "lista.h"
+
+using namespace std;
+
+List::List()
+{
+  this->head=NULL;
+  amount=0;
+}
+
+List::~List()
+{
+  cout << "destruktor List" << endl;
+  Node *current;
+  while (head!=NULL)
+    {
+      current=head;
+      head=head->next;
+      delete current;
+    }
+}
+
+Node::Node()
+{
+  srand((int)time(NULL));
+  int x=rand()%3;
+  if (x==0)
+    {
+      Ksztalt *figura = new Kolo(rand()%10 +1);
+      this->shape=figura;
+    }
+  else if(x==1)
+    {
+      Ksztalt *figura = new Trojkat(rand()%10+1);
+      rgis->shape=figura;
+    }
+  else if(x==2)
+    {
+      Kszalt *figura = new Kwadrat(rand()%10+1);
+      this->shape=figura;
+    }
+}
+
+void List::add()
+{
+  Node *current = new Node();
+  if (head==NULL)
+    {
+      this->head=current;
+      current->next=NULL;
+    }
+  else
+    {
+      current->next=head;
+      head=current;
+    }
+  amount++;
+}
