@@ -1,8 +1,8 @@
 #include <iomanip>
 #include <iostream>
 #include "punkt.h"
-using namespace std;
 
+using namespace std;
 
 int main(void){
 
@@ -11,6 +11,7 @@ int main(void){
   cout <<endl<< p1 <<endl;
   cout << endl << p.distance(p1) <<endl;
   cout <<endl<< p1.distance(p3) << endl;
+
   return 0;  
 }
 

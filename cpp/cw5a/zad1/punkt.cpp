@@ -55,5 +55,5 @@ void Punkt::wyswietl(){
 
 double Punkt::distance(Punkt pierwszy, Punkt drugi){
   return sqrt(pow(pierwszy.x-drugi.x,2)+pow(pierwszy.y-drugi.y,2));
-};
+}
 

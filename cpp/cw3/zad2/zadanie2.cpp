@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-
+//core dumped.. ?
 /*
 DO POPRAWY: przesyłanie deskryptora pliku do funkcji, podział na funkcje
 */
@@ -18,6 +18,7 @@ int main(int argv, char *argc[])
 
   ifstream wejscie(argc[1]);
   ofstream wyjscie(argc[2],ios_base::in|ios_base::trunc);
+  
   if(!wejscie)
     cout << "Nie można otworzyć pliku1!" << endl;
   if(!wyjscie)
@@ -60,19 +61,18 @@ int main(int argv, char *argc[])
 	      i++;
 	  }
 	}
-
     }  
-
 
   wejscie.close();
   wyjscie.close();
-  return 0;
-    
+
+  return 0;    
 }
 
 void stworz_szyfr(char tablica[][6])
 {
   int i,ascii=65;
+
   for(i=0;i<6;i++)
     {
       tablica[i][0]=i;
@@ -86,5 +86,4 @@ void stworz_szyfr(char tablica[][6])
 	tablica[i][j]=ascii;
 	ascii++;
       }
-
 }

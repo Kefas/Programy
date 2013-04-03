@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: zad.aux
+The style file: abbrv.bst
+Database file #1: zad.bib
+Warning--can't use both author and editor fields in Alur_Dill_1990
+You've used 3 entries,
+            2118 wiz_defined-function locations,
+            515 strings with 4039 characters,
+and the built_in function-call counts, 753 in all, are:
+= -- 64
+> -- 33
+< -- 1
++ -- 13
+- -- 10
+* -- 40
+:= -- 136
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 11
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 36
+empty$ -- 67
+format.name$ -- 10
+if$ -- 155
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 6
+newline$ -- 18
+num.names$ -- 6
+pop$ -- 24
+preamble$ -- 1
+purify$ -- 11
+quote$ -- 0
+skip$ -- 21
+stack$ -- 0
+substring$ -- 15
+swap$ -- 5
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 6
+warning$ -- 1
+while$ -- 6
+width$ -- 4
+write$ -- 33
+(There was 1 warning)

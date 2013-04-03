@@ -10,5 +10,6 @@ int main(int argc, char *argv[])
   pierwszy.print();
   pierwszy.przenies("hana");
   pierwszy.print();
+
   return 0;
 }

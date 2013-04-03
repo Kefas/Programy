@@ -13,6 +13,7 @@ int *(porownanie)(int x,int y);
 int main(int argv, char *argc[])
 {
   int tablica[lenght],seed;
+
   seed=time(NULL);
   srand(seed);
 
@@ -23,7 +24,6 @@ int main(int argv, char *argc[])
     }
 
   cout<< endl; << "Sortowanie babelkowe" << endl;
-
   sortowanie(tablica,lenght, 1);
 
   return 0;
@@ -31,4 +31,4 @@ int main(int argv, char *argc[])
 
 int *(porownanie)(int x, int y)
 {
-
+}

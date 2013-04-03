@@ -13,7 +13,7 @@ class Zespolona{
   ~Zespolona(){/*dekonstruktor*/};
   double getRe(){return re;};
   double getIm(){return im;};
-  void setRe(double x){re=x;};//ważne! typ void!
+  void setRe(double x){re=x;};
   void setIm(double y){im=y;};
 
   Zespolona add(Zespolona A, Zespolona B);

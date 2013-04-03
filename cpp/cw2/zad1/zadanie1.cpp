@@ -9,12 +9,12 @@ void zmienna(int x);
 int main(int argv, char *argc[])
 {
   int a=5,b=5,c=5;
-  cout << "ref=" << a <<"wsk="<<b <<"zmienna="<<c<< endl;
+  cout << "ref=" << a << " wsk=" << b << " zmienna="<< c << endl << endl;
   referencja(a);  
   wskaznik(&b);
   zmienna(c);
 
-  cout << "ref=" << a <<"wsk="<<b <<"zmienna="<<c<< endl;
+  cout << endl << "ref=" << a << " wsk="<< b << " zmienna=" << c << endl;
     
   return 0;
 }

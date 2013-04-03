@@ -35,12 +35,13 @@ class Punkt{
 };
 
 class Punkt3D : public Punkt{
- protected:
-  double z;
- public:
- Punkt3D():Punkt(),z(0){cout << "konstruktor bezparametrowy 3D";};
- Punkt3D(double x, double y,double _z):Punkt(x,y){ z=_z; cout << "konstruktor parametrowy 3d";};
-  ~Punkt3D(){cout<<"destruktor 3d";};
-  double distance(Punkt3D inny);
+  protected:
+    double z;
+  public:
+    Punkt3D():Punkt(),z(0){cout << "konstruktor bezparametrowy 3D";};
+    Punkt3D(double x, double y,double _z):Punkt(x,y){ z=_z; cout << "konstruktor parametrowy 3d";};
+    ~Punkt3D(){cout<<"destruktor 3d";};
+  
+    double distance(Punkt3D inny);
 };
 #endif

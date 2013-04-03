@@ -23,7 +23,6 @@ class Punkt{
     double distance(Punkt inny);
     double distance(Punkt pierwszy, Punkt drugi);
     void wyswietl();
- 
     // Krótkie funkcje mogą być zdefiniowane w pliku
     // nagłówkowym i będą traktowane jako funkcje inline
     double getX(){return x;}

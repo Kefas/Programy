@@ -1,4 +1,4 @@
-// Deklaracja znajduje siew pliku punkt.h
+// Deklaracja znajduje sie w pliku punkt.h
 #ifndef PUNKT_H
 #define PUNKT_H
  

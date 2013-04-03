@@ -19,7 +19,6 @@ class Lista {
   void add(string str);
   void del(void);
   void print(void);
-
 };
 
 class Wezel{
@@ -28,9 +27,7 @@ class Wezel{
   friend class Lista;
  public:
   Wezel(string str="nic");
-  //Wezel( Wezel &kopia);
   ~Wezel();
-  
 };
 
 #endif

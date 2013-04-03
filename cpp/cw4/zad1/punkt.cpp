@@ -11,6 +11,7 @@ using namespace std;
  
 //Specjalna inicjalizacja zmiennych. Zmienne są inicjowane
 //nim zostanie wywołane ciało konstruktora
+
 Punkt::Punkt():x(0),y(0){
   cout << "Konstruktor bezparametrowy" << endl;
 }
@@ -29,8 +30,6 @@ Punkt::~Punkt(){
 double Punkt::distance(Punkt inny){
   return sqrt(pow(x-inny.x,2)+pow(y-inny.y,2));
 }
-
-
  
 void Punkt::wyswietl(){
   cout << "(" << x << ";" << y << ")";
@@ -38,5 +37,4 @@ void Punkt::wyswietl(){
 
 double Punkt::distance(Punkt pierwszy, Punkt drugi){
   return sqrt(pow(pierwszy.x-drugi.x,2)+pow(pierwszy.y-drugi.y,2));
-};
-
+}

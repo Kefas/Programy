@@ -7,22 +7,17 @@ char* rekurencja(char slowo[x], char wspak[x], int r);
 
 int main(int argv, char* arg[])
 {
-  char slowo[x], wspak[x], *wynik;
+  char slowo[x], wspak[x];
 
-  cout << "Program do wyswietlania napisu wspak w sposob rekurencyjny" <<endl;
-  cout << "Prosze wpisac jakies slowo: ";
+  cout << "Program do wyswietlania napisu wspak w sposob rekurencyjny" << endl << "Prosze wpisac jakies slowo: ";
   cin >> slowo;
-
-  wynik=rekurencja(slowo, wspak, 0);
-
-  cout << "Slowo: " << slowo << " obrocone na wspak wyglada tak: " << wynik <<endl;
+  cout << "Slowo: " << slowo << " obrocone na wspak wyglada tak: " << rekurencja(slowo, wspak, 0) <<endl;
 
   return 0;
 }
 
 char* rekurencja(char slowo[x], char wspak[x], int r)
 {
-
   if (slowo[r]!='\0')
     {
       wspak[sizeof(slowo)-r]=slowo[r];

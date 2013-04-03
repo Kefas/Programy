@@ -30,8 +30,6 @@ Lista::Lista(const Lista &org)
       previousK=currentK;
       head=currentK;
     }
-  
-
 }
 
 Lista::~Lista()
@@ -43,7 +41,6 @@ Lista::~Lista()
       head=head->next;
       delete current;
     }
-
 }
 
 Wezel::Wezel(string str)
@@ -56,9 +53,6 @@ Wezel::~Wezel()
 {
   
 }
-
-
-
 
 void Lista::add(string str)
 {
@@ -73,8 +67,7 @@ void Lista::add(string str)
     {
       current->next=head;
       head=current; 
-    }
-  
+    }  
   ilosc++;
 }
 

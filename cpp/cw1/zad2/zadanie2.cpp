@@ -21,7 +21,7 @@ int main(int argv, char* arg[])
   wynik_rek=rekurencja(liczba,1);
 
 
-  cout << "Silnia z " << liczba << " obliczona iteracyjnie wynosi: " <<wynik_it;
+  cout << "Silnia z " << liczba << " obliczona iteracyjnie wynosi: " <<  wynik_it;
   cout << " a rekurencyjnie : " << wynik_rek << endl;
 
   return 0;

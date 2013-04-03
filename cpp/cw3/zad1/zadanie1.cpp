@@ -16,6 +16,7 @@ int main(int argv, char *argc[])
   cin >> rows;
 
   tablica = new int *[cols];
+  
   for(int i=0;i<cols;i++)
     tablica[i]=new int [rows];
 
@@ -24,15 +25,14 @@ int main(int argv, char *argc[])
 
   for(int j=0;j<cols;j++)
     delete [] tablica[j];
+ 
   delete [] tablica;
-  
-
+ 
   return 0;
 }
 
 void pomnoz(int **tablica, int cols, int rows)
 {
-
   for(int i=0;i<cols;i++)
     for(int j=0;j<rows;j++)
       *(*(tablica+i)+j)=i*j;
@@ -44,6 +44,7 @@ void wyswietl(int **tablica,int cols, int rows)
       for(int j=0;j<rows;j++)
 	{
 	  cout << *(*(tablica+i)+j);
+	  
 	  if( i*j<10) cout << "  ";
 	  else cout << " ";
 	}
