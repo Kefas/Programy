@@ -6,9 +6,9 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Kwadrat edek(10,10,0,10,10,0,0,0);
+  Kwadrat kwadrat(10,10,0,10,10,0,0,0);
 
-  cout << "Pole Edka to: " << edek.p() << " a jego obwod to " << edek.obw() << endl;
+  cout << "Pole Kwadratu to: " << kwadrat.p() << " a jego obwod to " << kwadrat.obw() << endl;
 
   return 0;
 }

@@ -28,8 +28,10 @@ int main(int argv, char* arg[])
 	  else cout << "Slowo " << slowo << " nie jest palindromem" <<endl;
 	}
       c='1';
-      cin.ignore(1000,'\n');
+      cin.ignore(1000,'\n'); //usuwanie z wejscia zbednych znakow 
     }
+  delete [] slowo;
+  return 0;
 }
 
 bool sprawdz(char *slowo)
@@ -41,6 +43,6 @@ bool sprawdz(char *slowo)
     {
       if (slowo[i]!=slowo[x-1-i])
 	return false;
-      else return true;
     }
+  return true;
 }

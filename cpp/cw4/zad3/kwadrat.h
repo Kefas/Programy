@@ -3,7 +3,7 @@
 #define KWADRAT_H
 
 #include "punkt.h"
-
+x
 class Kwadrat {
  private:
   Punkt A,B,C,D; 

@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//przesylajac tablicę o wymiarze większym niż R1 nalezy zawsze podac jej ostatni wymiar, chyba ze poslugujemy sie wskaznikami
 void pomnoz(int tablica[][10]);
 void wyswietl(int tablica[][10]);
 
@@ -18,6 +19,7 @@ int main(int argv, char *arg[])
   return 0;
 }
 
+//mozna dzialac na tablicy przesylajac jej adres
 void pomnoz(int tablica[][10])
 {
   for(int y=1;y<=10;y++)
