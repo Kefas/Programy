@@ -1,0 +1,33 @@
+#include <iostream>
+
+using namespace std;
+
+int nwd_it(int a, int b);
+
+int main(int argc, char * argv[])
+{
+  int a,b,nwd;
+  cout << "Program do znajdowania NWD metodą Euklidesa. Podaj pierwszą: ";
+  cin >> a;
+  cout << "Drugą: ";
+  cin >> b;
+
+  nwd = nwd_it(a,b);
+
+  cout << " NWD z " << a << " i " << b << " jest równe: " << nwd << endl;
+
+
+  return 0;
+}
+
+int nwd_it(int a, int b)
+{
+  int c;
+  while(b!=0)
+    {
+      c = a % b;
+      a = b;
+      b= c;
+    }
+  return a;
+}
