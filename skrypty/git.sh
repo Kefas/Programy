@@ -13,7 +13,7 @@ if [ -n "$cpp" -o -n "$h" ]
 then
 git add *cpp *h
 git commit -m ${1}
-git push
+git push origin ${2}
 fi 
 
 
