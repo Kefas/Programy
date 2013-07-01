@@ -1,0 +1,15 @@
+\documentclass[a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{color}
+
+\newcommand{\fixme}[1]{\colorbox{yellow}{ (#1)}
+
+\begin{document}
+
+cos
+\fixme{!!!!!!!}
+
+\end{document}

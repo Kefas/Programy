@@ -1,0 +1,45 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{anysize}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{calc,through,backgrounds,positioning}
+\marginsize{3cm}{3cm}{3cm}{3cm}
+
+\begin{document}
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}
+\coordinate (A) at (0,0,4);
+\coordinate (B) at (0,0,0);
+\coordinate (C) at (4,0,0);
+\coordinate (D) at (4,0,4);
+\coordinate (E) at (2,5,2);
+\coordinate (K) at (0,0,2);
+\coordinate (L) at (4,0,2);
+\draw (A) -- (B) node [above right] {$B$};
+\draw (B) -- (C) node [above right] {$C$};
+\draw (C) -- (D) node [below right] {$D$};
+\draw (D) -- (A) node [below left] {$A$};
+\draw (A) -- (C);
+\draw (B) -- (D);
+\draw (A) -- (E) node [above] {$E$};
+\draw (B) -- (E);
+\draw (C) -- (E);
+\draw (D) -- (E);
+\filldraw [draw=green,fill=red!30!white,opacity=0.5]
+	(K) -- (L) -- (E) -- (K);
+\node at (K) [left] {$K$};
+\node at (L) [right] {$L$};
+
+
+
+
+\end{tikzpicture}
+\end{figure}
+
+\end{document}

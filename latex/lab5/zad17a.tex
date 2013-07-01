@@ -1,0 +1,59 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{anysize}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc,through,backgrounds,positioning}
+\marginsize{3cm}{3cm}{3cm}{3cm}
+
+\begin{document}
+
+\tikzstyle{stt}=[shape=circle, draw, minimum height=6mm]
+
+\begin{center}
+\begin{tikzpicture}[scale=1,inner sep=0.4mm]
+\node (s0) [draw=blue,stt,thick] at (0,5) {$s_0$};
+\node (s1) [stt] at (-2,3.5) {$s_1$};
+\node (s2) [stt] at (0,3.5) {$s_2$};
+\node (s3) [draw=red,stt] at (2,3.5) {$s_3$};
+\node (s4) [stt] at (-4,2) {$s_4$};
+\node (s5) [stt] at (-2,2) {$s_5$};
+\node (s6) [stt] at (0,2) {$s_6$};
+\node (s7) [draw=red,stt] at (2,2) {$s_7$};
+\node (s8) [stt] at (4,2) {$s_8$};
+\node (s9) [stt] at (-4,0.5) {$s_9$};
+\node (s10) [stt] at (-2,0.5) {$s_{10}$};
+\node (s11) [stt] at (0,0.5) {$s_{11}$};
+\node (s12) [fill=green,stt] at (2,0.5) {$s_{12}$};
+
+
+\draw [-triangle 60] (s0) -- node [fill=white]{$\alpha$} (s1);
+\draw [-triangle 60,fill=blue] [draw=blue] (s0) -- node [fill=white]{$\beta$} (s2);
+\draw [-triangle 60,fill=blue] [draw=blue] (s0) -- node [fill=white]{$\gamma$} (s3);
+\draw [-triangle 60] (s1) -- node [fill=white]{$\alpha$} (s4);
+\draw [-triangle 60] (s1) -- node [fill=white]{$\beta$} (s5);
+\draw [-triangle 60] (s1) -- node [fill=white]{$\gamma$} (s6);
+\draw [-triangle 60] (s2) -- node [fill=white]{$\beta$} (s6);
+\draw [-triangle 60] (s2) -- node [fill=white]{$\gamma$} (s7);
+\draw [-triangle 60,fill=red] [draw=red] (s3) -- node [fill=white]{$\alpha$} (s7);
+\draw [-triangle 60,fill=red] [draw=red] (s3) -- node [fill=white]{$\alpha$} (s8);
+\draw [-triangle 60] (s5) -- (-2.5,1.25) node [fill=white]{$\alpha$} -- (s10);
+\draw [-triangle 60] (s5) -- node [fill=white]{$\beta$} (s10);
+\draw [-triangle 60] (s6) -- (-0.5,1.25) node [fill=white]{$\alpha$} -- (s11);
+\draw [-triangle 60] (s6) -- node [fill=white]{$\beta$} (s11);
+\draw [-triangle 60,fill=red] [draw=red] (s7) -- node [fill=white]{$\beta$} (s11);
+\draw [-triangle 60,fill=red] [draw=red] (s7) -- node [fill=white]{$\beta$} (s12);
+\draw [-triangle 60] (s8) -- node [fill=white]{$\alpha$} (s12);
+\draw [-triangle 60] (s11) -- node [fill=white]{$\alpha$} (s10);
+\draw [-triangle 60] (s10) -- node [fill=white]{$\delta$} (s9);
+\draw [-triangle 60] (s9) -- node [fill=white]{$\delta$} (s4);
+\draw [-triangle 60] (s4) -- (-3,3.5) node [fill=white]{$\delta$} -- (s0);
+
+
+\end{tikzpicture}
+\end{center}
+\end{document}
