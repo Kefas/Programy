@@ -1,0 +1,29 @@
+
+body {
+    background-color: #667C26;
+}
+
+#canvas {
+    height: 480px;
+    width: 640px;
+    background-color: #437C17;
+    margin: 15px 15px 15px 15px;
+}
+
+#pole {
+    height:400px;
+    width: 400px;
+    background-color: #ffffcc;
+    border: 2px solid black;
+    float: left;
+    margin: 10px 10px 10px 10px;
+}
+
+#score {
+    height: 100px;
+    width: 180px;
+    background-color: #ffffcc;
+    border: 2px solid black;
+    float: right;
+    margin: 10px 10px 10px 10px;
+}
