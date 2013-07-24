@@ -1,0 +1,61 @@
+#main {
+    height: 520px;
+    width: 49%;
+    background-color: green;
+    border: 2px solid black;
+    
+}
+
+#start {
+    height: 460px;
+    width: 90%;
+    background-color: white;
+    margin: auto;
+    margin-top: 30px;
+    opacity: 1;
+}
+
+#button {
+    height: 50px;
+    width: 150px;
+    background-color: red;
+    border: 2px solid black;
+    border-radius: 25%;
+    margin: auto;
+    position: relative;
+    top: 40%;
+    
+    
+}
+
+#button > h2 {
+    text-align: center;
+    margin-top: 13px;
+    margin-bottom:13px;
+}
+
+#game {
+    margin: auto;
+    margin-top: 30px;
+    height: 460px;
+    width: 90%;
+    opacity: 0;
+}
+
+#canvas {
+   height: 460px;
+   width: 75%;
+   /* margin: 10px 10px 10px 10px; */
+   background-color: yellow;
+   float: left;
+    
+}
+
+#score {
+   height: 90px;
+   width: 20%;
+   /* margin: 10px 10px 10px 10px; */
+   background-color: white;
+   float:right;
+}
+
