@@ -177,6 +177,7 @@ span{
     border: 2px solid black;
     float: left;
     margin: 10px 10px 10px 10px;
+    opacity: 0;
 }
 
 #prawy_s{
@@ -218,3 +219,32 @@ span{
     font-size: 14px;
     text-align: left;
     }
+
+#starter {  
+    height:400px;
+    width: 400px;
+    background-color: #ffffcc;
+    border: 2px solid black;
+    float: left;
+    margin: 10px 10px 10px 10px;
+    opacity: 1;
+}
+
+#button {
+    height: 40px;
+    width: 100px;
+    border: 2px solid black;
+    radius-border: 25%;
+    margin: auto;
+    margin-top: 170px;
+    }
+
+#button > h2 {
+    margin-left: 15px;
+    margin-top: 10px;
+    color: red;
+}
+
+#button:hover {
+    background-color: #edc951;
+}
