@@ -21,5 +21,5 @@ public class Main {
 	}
 }
 
-// Poniewa¿ przy liœcie mo¿emy modyfikowaæ elementy, nie mo¿emy jednak zmodyfikowaæ listy
+// Poniewa¿ przy liœcie mo¿emy modyfikowaæ elementy, nie mo¿emy jednak przypisaæ nowej referencji do tej zmiennej
 //
