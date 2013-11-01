@@ -10,8 +10,8 @@ public class Main {
 		Cryptographer temp = new Cryptographer();
 		File gunwo = new File("C:/Users/piotr/Documents/GitHub/Programy/java/lab4/cw4/src/myPkg/source.txt");
 		File zaszy = new File("C:/Users/piotr/Documents/GitHub/Programy/java/lab4/cw4/zaszyfrowany.txt");
-		Cryptographer.cryptfile(gunwo, new Polibiusz());
-		Cryptographer.decryptfile(zaszy , new Polibiusz());
+		//Cryptographer.cryptfile(gunwo, new ROT11());
+		Cryptographer.decryptfile(zaszy , new ROT11());
 		
 		
 	}

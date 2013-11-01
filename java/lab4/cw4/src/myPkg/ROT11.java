@@ -33,7 +33,7 @@ public class ROT11 implements Algorythm {
 		for(int i=0; i<x.length(); i++){
 			for( int j=0;j<tab.length;j++){
 				if (tab[j] == x.charAt(i)){
-					wynik += tab[(j+14)%tab.length];
+					wynik += tab[(j+15)%tab.length];
 					match = true;
 				}
 			}
