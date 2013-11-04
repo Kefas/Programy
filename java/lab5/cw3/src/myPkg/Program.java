@@ -37,7 +37,7 @@ public class Program {
 				}
 					
 			
-			int num1 = Integer.parseInt(str1);
+ 			int num1 = Integer.parseInt(str1);
 			int num2 = Integer.parseInt(str2);
 			if( num1 >= num2)
 				throw new BadFormatException(numline);
@@ -48,6 +48,7 @@ public class Program {
 			numline++;
 		}
 		output.close();
+		
 		
 	}
 	

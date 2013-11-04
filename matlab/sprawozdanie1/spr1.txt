@@ -1,0 +1,21 @@
+Wnioski - Sprawozdanie 1 - 21.10.2013
+
+Symulacja dotyczy zmian napiêcia na kondensatorze w obwodzie RC dla sterowania u(t) = 0.
+Autonomiczne równanie ró¿niczkowe opisuj¹ce zjawisko ma postaæ:
+
+	x'(t) = (-1/(RC)) * x(t)
+
+Rozwi¹zanie uk³adu dla t>=0 jest równe:
+
+	x(t) = e^((-t/(RC)) * x(0)
+
+x - napiêcie na kondesatorze
+x(0) - warunek pocz¹tkowy dla chwili t=0 oznacza napiêcie na kondensatorze przed rozpoczêciem roz³adowywania siê kondensatora
+t - czas
+R - opór kondensatora
+C - pojemnoœæ kondensatora
+
+Otrzymana w symulacji funkcja jest przekszta³con¹ funkcjê e^t.
+Od wartoœci x(0) zale¿y maksymalna wartoœæ funkcji.
+Im mniejsza wartoœæ R tym szybszy jest spadek wartoœci funkcji, spowodowane jest to szybszym przep³ywem pr¹du przez mniejszy opór.
+Im mniejsza pojemnoœæ kondensatora tym szybciej siê on roz³adowywuje, jest to spowodowane mniejszym ³adunkiem elektrycznym zgromadzonym na kondesatorze.
