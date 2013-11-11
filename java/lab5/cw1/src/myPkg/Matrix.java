@@ -54,6 +54,9 @@ public class Matrix {
 				}
 			
 		}
+		catch (MatrixDimensionsException e){
+			throw e;
+		}
 		finally{
 			in.close();
 		}

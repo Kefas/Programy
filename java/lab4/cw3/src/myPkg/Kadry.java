@@ -14,7 +14,7 @@ public class Kadry {
 	}
 	static void usun(String pes){
 		for(int i=0;i<lista.size();i++){
-			if (lista.get(i).pesel == pes){
+			if (lista.get(i).pesel.equals(pes)){
 				lista.remove(i);
 				break;
 			}
@@ -23,21 +23,22 @@ public class Kadry {
 	static void szukaj(String pes){
 
 		for(int i=0;i<lista.size();i++){
-			if (lista.get(i).pesel == pes)
+			if (lista.get(i).pesel.equals(pes)){
 				System.out.print(lista.get(i).pesel + " " + lista.get(i).wynagrodzenieBrutto);
+			}
 		}
 		
 		
 	}
 	static void zmienBrutto(String pes, double wyn){
 		for(int i=0;i<lista.size();i++){
-			if (lista.get(i).pesel == pes)
+			if (lista.get(i).pesel.equals(pes))
 				lista.get(i).wynagrodzenieBrutto = wyn;
 		}
 	}
 	static double pobierzBrutto(String pes){
 		for(int i=0;i<lista.size();i++){
-			if (lista.get(i).pesel == pes)
+			if (lista.get(i).pesel.equals(pes))
 				return lista.get(i).wynagrodzenieBrutto;
 		}
 		return -1;
@@ -45,7 +46,7 @@ public class Kadry {
 	
 	static double pobierzNetto(String pes){
 		for(int i=0;i<lista.size();i++){
-			if (lista.get(i).pesel == pes)
+			if (lista.get(i).pesel.equals(pes))
 				return lista.get(i).wynagrodzenieNetto();
 		}
 		return -1;
