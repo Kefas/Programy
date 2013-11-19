@@ -5,12 +5,14 @@ public class MatrixDimensionsException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public int [][] matrix;
+
 	public MatrixDimensionsException() {
 		// TODO Auto-generated constructor stub
-		System.out.println("MatrixDimensionsExceptions");
+		super("MatrixDimensionsExceptions");
 	}
-	public MatrixDimensionsException(int [][] tab){
-		matrix = tab;
+	
+	public MatrixDimensionsException(String t) {
+		// TODO Auto-generated constructor stub
+		super(t);
 	}
 }

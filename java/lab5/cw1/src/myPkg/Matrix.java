@@ -21,9 +21,7 @@ public class Matrix {
 		rows = 3;
 		cols = 3;
 		matrix = new int[rows][cols];
-		for( int i=0; i<rows; i++)
-			for( int j=0; j<cols; j++)
-				matrix[i][j] = 0;
+		
 	}
 	public Matrix(String plik) throws FileNotFoundException, MatrixDimensionsException{
 		File myfile= new File(plik);

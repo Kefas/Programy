@@ -59,6 +59,11 @@ public class Matrix {
 			
 	}
 	
+	public Matrix(int cols2, int rows2) {
+		this.cols = cols;
+		this.rows = rows;
+		
+	}
 	public Matrix add(Matrix temp) throws MatrixDimensionsException{
 		if( this.rows != temp.rows || this.cols != temp.cols) throw new MatrixDimensionsException();
 		Matrix result = new Matrix();

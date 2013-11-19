@@ -8,6 +8,11 @@ public class MatrixDimensionsException extends Exception {
 
 	public MatrixDimensionsException() {
 		// TODO Auto-generated constructor stub
-		System.out.println("MatrixDimensionsExceptions");
+		super("MatrixDimensionsExceptions");
+	}
+	
+	public MatrixDimensionsException(String t) {
+		// TODO Auto-generated constructor stub
+		super(t);
 	}
 }

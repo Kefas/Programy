@@ -15,7 +15,7 @@ public class Main {
 		try{
 			temp = new Matrix(3,3,matrix);
 			temp3 = new Matrix(4,4,matrix);
-			plik = new Matrix("C:/Users/piotr/Documents/GitHub/Programy/java/lab5/cw1/src/matrix.txt");
+			plik = new Matrix("matrix.txt");
 			
 			temp.add(temp3);
 			

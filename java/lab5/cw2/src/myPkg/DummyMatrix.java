@@ -1,5 +1,7 @@
 package myPkg;
 
+import java.io.FileNotFoundException;
+
 
 public class DummyMatrix extends Matrix {
 	public DummyMatrix(int x, int y, int [][] tab){
@@ -7,6 +9,14 @@ public class DummyMatrix extends Matrix {
 	}
 	public DummyMatrix(){
 		super();
+	}
+	
+	public DummyMatrix(String plik) throws FileNotFoundException, MatrixDimensionsException{
+		super(plik);
+	}
+	
+	public DummyMatrix(int cols, int rows) {
+		super(cols, rows);
 	}
 	public DummyMatrix add(Matrix temp) throws MatrixDimensionsException{
 		int [][] wynik = new int[this.cols][this.rows];
@@ -27,7 +37,7 @@ public class DummyMatrix extends Matrix {
 							wynik[i][j] = this.matrix[i][j] + temp.matrix[i][j];
 							
 			}
-			throw new MatrixDimensionsException(wynik);
+			throw new DummyMatrixDimensionException(wynik);
 		}
 		DummyMatrix result = new DummyMatrix();
 		for(int i=0;i<this.rows;i++)
@@ -37,7 +47,7 @@ public class DummyMatrix extends Matrix {
 		return result;
 	}
 	
-	public DummyMatrix sub(Matrix temp) throws MatrixDimensionsException{
+	public DummyMatrix sub(Matrix temp) throws DummyMatrixDimensionException{
 		int [][] wynik = new int[this.cols][this.rows];
 		
 		if( this.rows != temp.rows || this.cols != temp.cols) {
@@ -55,7 +65,7 @@ public class DummyMatrix extends Matrix {
 							wynik[i][j] = this.matrix[i][j] -  temp.matrix[i][j];
 									
 			}
-			throw new MatrixDimensionsException(wynik);
+			throw new DummyMatrixDimensionException(wynik);
 		}
 		
 		DummyMatrix result = new DummyMatrix();
@@ -66,7 +76,7 @@ public class DummyMatrix extends Matrix {
 		return result;
 	}
 	
-	public DummyMatrix mul(Matrix temp) throws MatrixDimensionsException{
+	public DummyMatrix mul(Matrix temp) throws DummyMatrixDimensionException{
 		
 		
 		int [][] wynik = new int[this.cols][this.rows];
@@ -89,10 +99,10 @@ public class DummyMatrix extends Matrix {
 								wynik[i][j] += this.matrix[i][j] * temp.matrix[j][k];
 			}		
 			
-			throw new MatrixDimensionsException(wynik);
+			throw new DummyMatrixDimensionException(wynik);
 		}
 		
-		DummyMatrix result = new DummyMatrix();
+		DummyMatrix result = new DummyMatrix(this.cols, this.rows);
 		for(int i=0; i<this.cols;i++)
 			for( int j=0; j<this.rows;j++)
 				for(int k=0; k<temp.cols; k++)

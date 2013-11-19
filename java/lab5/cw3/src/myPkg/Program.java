@@ -15,9 +15,7 @@ public class Program {
 		double mspf = 1000 / (double)45;
 		int przesuniecie = (int)(delay/mspf);
 		
-		
-		try{
-		
+		try{		
 			while(input.hasNextLine()){
 				line = input.nextLine();
 				int open1 = line.indexOf("{");
@@ -26,22 +24,20 @@ public class Program {
 				
 				String str1 = line.substring(open1+1, close1);
 				String str2 = line.substring(close1+2, close2);
+	
+				int num1;
+				int num2;
+				try{
+					num1 = Integer.parseInt(str1);
+					num2 = Integer.parseInt(str2);
+				}
+				catch (Exception e){
+					throw new BadFormatException();
+				}
 				
-				for(int i=0; i<str1.length();i++)
-					if(!Character.isDigit(str1.charAt(i))) throw new BadFormatException();
-					
-				for(int i=0; i<str1.length();i++)
-					if(!Character.isDigit(str2.charAt(i))) throw new BadFormatException();
-				
-	 			int num1 = Integer.parseInt(str1);
-				int num2 = Integer.parseInt(str2);
-				
-				if( num1 >= num2) throw new BadFormatException();
-					
-				output.println("{" + (num1+przesuniecie) + "}" + "{" + (num2+przesuniecie) + "}" + line.substring(close2+1));
-						
-			}
-			
+				if( num1 >= num2) throw new BadFormatException("T2>T1");				
+				output.println("{" + (num1+przesuniecie) + "}" + "{" + (num2+przesuniecie) + "}" + line.substring(close2+1));					
+			}			
 		}
 		catch (BadFormatException e){
 			throw e;
@@ -50,8 +46,5 @@ public class Program {
 			input.close();
 			output.close();
 		}
-		
-		
 	}
-	
 }
