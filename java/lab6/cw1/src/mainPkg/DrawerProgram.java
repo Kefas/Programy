@@ -15,7 +15,7 @@ public class DrawerProgram extends Frame {
 
 	public DrawerProgram(){
 	        MyPanel d = new MyPanel();
-	        d.setSize(400,400);
+	        d.setSize(600,600);
 	        add(d);
 	        
 	        addWindowListener(new WindowAdapter(){

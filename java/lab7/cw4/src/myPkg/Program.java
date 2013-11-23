@@ -3,9 +3,9 @@ import java.sql.*;
 //import com.mysql.jdbc.Driver;
 
 public class Program {
-	private Connection conn = null;
-	  private Statement stmt = null;
-	  private ResultSet rs = null;
+	protected Connection conn = null;
+	  protected Statement stmt = null;
+	  protected ResultSet rs = null;
 	  
 	public void connect(){
 		try{
@@ -30,7 +30,7 @@ public class Program {
 		 
 		      while(rs.next()){
 		        //String name = rs.getString(1);
-		        String line = rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3);
+		        String line = rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4);
 		        System.out.println(line);
 		      }
 		    }catch (SQLException ex){
@@ -54,19 +54,6 @@ public class Program {
 		      }
 		    }
 	}
-	public void findAuthor(String author) throws SQLException{
-		rs = stmt.executeQuery("SELECT * FROM books WHERE author='"+author+"'");
-		while(rs.next()){
-	        //String name = rs.getString(1);
-	        String line = rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3);
-	        System.out.println(line);
-	      }
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Program test = new Program();
-		test.listAll();
-	}
 
+	
 }
