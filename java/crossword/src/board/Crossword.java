@@ -1,8 +1,14 @@
 package board;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 import dictionary.CwEntry;
 import dictionary.InteliCwDB;
@@ -11,19 +17,55 @@ public class Crossword {
 	private LinkedList<CwEntry> entries;    // lista hase³ w krzy¿ówce
 	private Board b;						// tablica krzy¿ówki
 	private InteliCwDB cwdb;				// metoda do znajdywania hase³
-	private final long ID = -1;				// some random shit
+	private long ID;				// some random shit
+	private int strat;
+	private Strategy strategy;
 	
 	public Crossword(Board b, InteliCwDB cwdb){
 		this.b = b;
 		this.cwdb = cwdb;
 		entries = new LinkedList<CwEntry>();
+		ID = -1;
+//		temporarty
+		//strategy = new ConcreteStrategy();
 	}
 	
+	public Crossword(int height, int width, InteliCwDB cwdb) {
+		// TODO Auto-generated constructor stub
+		b = new Board(height, width);
+		this.cwdb = cwdb;
+		entries = new LinkedList<CwEntry>();
+		ID = -1;
+		//temporary 
+		//strategy = new ConcreteStrategy();
+	}
+
+	public Crossword(long ID, File f) throws IOException {
+		if(entries == null)
+			entries = new LinkedList<CwEntry>();
+		this.ID = ID;
+		
+		BufferedReader reader = new BufferedReader(new FileReader(f));
+		String line = reader.readLine();
+		String tab[] = line.split(" ");
+		b = new Board(Integer.parseInt(tab[0]), Integer.parseInt(tab[1]));
+		if(Integer.parseInt(tab[2]) == 0)
+			strategy = new ConcreteStrategy();
+		while((line = reader.readLine()) != null){
+			String word = line;
+			String clue = reader.readLine();
+			tab = reader.readLine().split(" ");
+			addCwEntry(new CwEntry(word, clue, Integer.parseInt(tab[0]), Integer.parseInt(tab[1])), strategy);		
+		}
+			
+		reader.close();
+	}
+
 	public Iterator<CwEntry> getROEntryIter(){
 		return Collections.unmodifiableList(getEntries()).iterator();
 		
 	}
-	private LinkedList<CwEntry> getEntries() {
+	public LinkedList<CwEntry> getEntries() {
 		return entries;
 	}
 	public Board getBoardCopy(){
@@ -51,6 +93,7 @@ public class Crossword {
 	}	
 	
 	public final void generate(Strategy s){
+		
 		CwEntry e = null;
 		while((e = s.findEntry(this)) != null){ 
 			addCwEntry(e,s);
@@ -63,5 +106,24 @@ public class Crossword {
 			System.out.println("");
 		}
 	}
+	public int getHeight(){
+		return b.getHeight();
+	}
+	public int getWidth(){
+		return b.getWidth();
+	}
+	public void setStrategyInt(int x){
+		this.strat = x;
+	}
+	public int getStrategyInt(){
+		return strat;
+	}
+	public void setStrategy(Strategy strat){
+		strategy = strat;
+	}
+	public Strategy getStrategy(){
+		return strategy;
+	}
+	
 	
 }

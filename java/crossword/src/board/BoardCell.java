@@ -18,7 +18,8 @@ public class BoardCell {
 	}
 
 	
-	public void setBoardCell(boolean state, Direction d, Position p){
+	public void setBoardCell(String content, boolean state, Direction d, Position p){
+		this.content = content;
 		acces = state;
 		this.d = d;
 		this.p = p;

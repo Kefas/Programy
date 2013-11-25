@@ -8,7 +8,7 @@ import dictionary.InteliCwDB;
 
 public class ConcreteStrategy extends Strategy {
 	private String password = new String();
-	private static int i=0;
+	private int i=0;
 	
 
 	@Override
@@ -17,11 +17,13 @@ public class ConcreteStrategy extends Strategy {
 		Direction d;
 		d = Direction.VERT;
 		CwEntry ret = null;
-		Entry temp = null;  
+		Entry temp = null; 
+		cw.setStrategyInt(0);
 		
-		if(password.isEmpty())   // jeœli nie mamy has³a to losujemy
+		if(password.isEmpty()){  // jeœli nie mamy has³a to losujemy
+			System.out.println("JUZZ");
 			generatePassword(cw);
-		
+		}
 		while ( temp == null && i<password.length()){ 
 			temp = cw.getCwDB().getRandom(password.charAt(i) + ".{1,9}" ); 	// je¿eli nie znajdziemy has³a na konkretn¹ literê
 			if(temp == null)
@@ -29,8 +31,12 @@ public class ConcreteStrategy extends Strategy {
 			i++;															// to zwróci siê null, wiêc i++ i szukamy dla kolejnej litery
 		}	
 		if(temp != null){
+			//while(ret == null)
 			ret = new CwEntry(temp.getWord(), temp.getClue(), 0, i);       // tworzymy nowe CwEntry na podstawie znalezionego Entry
-			updateBoard(cw.getBoardCopy(), ret);							// tego póki co nie pisz
+		//s	updateBoard(cw.getBoardCopy(), ret);							// tego póki co nie pisz
+//			tutaj zamiast updateBoard addCwEntry
+			//cw.addCwEntry(ret, this);
+			
 			System.out.println(ret.getWord());								//wypisanie tego znalezionego s³owa
 		}
 		
@@ -40,7 +46,12 @@ public class ConcreteStrategy extends Strategy {
 	@Override
 	public void updateBoard(Board b, CwEntry c) {
 		for(int i=0; i<c.getWord().length(); i++){
-			b.getCell(i, c.getY()).setContent(c.getWord().substring(i,i+1));
+			if(i==0)
+				b.getCell(i, c.getY()).setBoardCell(c.getWord().substring(i,i+1),true, Direction.HORIZ, Position.START);
+			else if(i<c.getWord().length()-1)
+				b.getCell(i, c.getY()).setBoardCell(c.getWord().substring(i,i+1),false, Direction.HORIZ, Position.INNER);
+			else
+				b.getCell(i, c.getY()).setBoardCell(c.getWord().substring(i,i+1),false,Direction.HORIZ, Position.END);
 		}
 
 	}
@@ -54,8 +65,8 @@ public class ConcreteStrategy extends Strategy {
 		Entry temp = null;
 		while(temp == null){
 			int rand = generator.nextInt(crossword.getBoardCopy().getHeight() - half) + half;
-			temp = crossword.getCwDB().getRandom(rand);
-			
+		//	System.out.print(crossword.getCwDB());
+			temp = crossword.getCwDB().getRandom(rand);			
 		}
 		this.password = temp.getWord();
 		System.out.println(password );	

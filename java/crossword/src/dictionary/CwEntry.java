@@ -26,7 +26,10 @@ public class CwEntry extends Entry {
 	public Direction getDir() {
 		return d;
 	}
-	
+	public String toString(){
+		return this.getWord() + "\n" + this.getClue() + "\n" + Integer.toString(this.getX()) + " " + Integer.toString(this.getY());
+		
+	}
 	
 
 }
