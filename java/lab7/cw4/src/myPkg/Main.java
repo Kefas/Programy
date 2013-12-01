@@ -9,7 +9,11 @@ public class Main {
 		Program4 test = new Program4();
 		//test.connect();
 		test.listAll();
-		test.removeAuthor("Orhan Pamuk");
+		//
+		System.out.println("********************");
+		test.findAuthor("Aldous Huxley");
+		test.removeAuthor("Aldous Huxley");
+		System.out.println("********************");
 		test.listAll();
 	}
 

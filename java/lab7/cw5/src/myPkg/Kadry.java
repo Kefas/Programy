@@ -212,6 +212,34 @@ public class Kadry {
 	
 	void sortuj(){
 		//Collections.sort(lista, new Sort() );
+		try {
+			 
+			 stmt = conn.createStatement();
+			 
+			 // Wyciagamy wszystkie pola z kolumny name
+			 // znajduj¹ce siê w tabeli users
+			 rs = stmt.executeQuery("SELECT * FROM kadra ORDER BY brutto DESC;");
+			 
+		 }catch (SQLException ex){
+			 // handle any errors
+			 
+		 }finally {
+			 // zwalniamy zasoby, które nie bêd¹ potrzebne
+			 if (rs != null) {
+				 try {
+					 rs.close();
+				 } catch (SQLException sqlEx) { } // ignore
+				 rs = null;
+			 }
+		 
+			 if (stmt != null) {
+				 try {
+					 stmt.close();
+				 } catch (SQLException sqlEx) { } // ignore
+		 
+				 stmt = null;
+			 }
+		 }		
 	}
 	
 	public static void main(String[] args) {

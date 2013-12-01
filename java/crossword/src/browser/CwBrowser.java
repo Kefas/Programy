@@ -2,10 +2,7 @@ package browser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.ListIterator;
-
 import dictionary.InteliCwDB;
-import board.ConcreteStrategy;
 import board.Crossword;
 import board.Strategy;
 
@@ -15,8 +12,12 @@ public class CwBrowser {
 	private CwWriter writer;
 	private InteliCwDB cwdb;
 	private Crossword temp;
-	private ListIterator<Crossword> it;
-
+	/**
+	 * Constructor with filePath parameter
+	 * 
+	 * @param filePath filePath to Crossword Database file
+	 * @throws FileNotFoundException
+	 */
 	public CwBrowser(String filePath) throws FileNotFoundException{
 		if(filePath == null)
 			filePath = "cwdb.txt";
@@ -25,35 +26,75 @@ public class CwBrowser {
 		
 	}
 	
+	/**
+	 * Method which generating Crossword
+	 * 
+	 * @param height Height of Board
+	 * @param width Width of Board
+	 * @param strategy Strategy of crossword
+	 */
 	public void generateCw(int height, int width, Strategy strategy){
 		Crossword cw = new Crossword(height,  width, cwdb);
 		cw.generate(strategy);
 		temp = cw;
 		list.add(temp);
 	}
-	public void save(String folderPath) throws IOException{
+	
+	/**
+	 * Method save
+	 * 
+	 * @param folderPath folderPath where Crossword should be saved
+	 * @throws Exception 
+	 */
+	public void save(String folderPath) throws Exception{
 		writer = new CwWriter(folderPath);
 		writer.write(temp);
+
 	}
+	
+	/**
+	 * Method load
+	 * 
+	 * @param folderPath folderPath from where Crossword should be loaded
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public void load(String folderPath) throws NumberFormatException, IOException{
 		reader = new CwReader(folderPath);
 		list.addAll(reader.getAllCws());
 		temp = list.getLast();	
 	}
+	
+	/**
+	 * Method which returning actual Crossword
+	 * 
+	 * @return actual crossword
+	 */
 	public Crossword getCw(){
 		return temp;
 	}
+	
+	/**
+	 * Method which updating Crossword Dtabase
+	 * 
+	 * @param filePath FilePath 
+	 * @throws FileNotFoundException
+	 */
 	public void updateCwBD(String filePath) throws FileNotFoundException{
 		cwdb = new InteliCwDB(filePath);
 	}
 
+	/**
+	 * Method which setting actual Crossword on previous
+	 */
 	public void prev() {
-			
-		
 		if( list.indexOf(temp)>0 && list.indexOf(temp)<list.size())
-			temp = list.get(list.indexOf(temp)-1);
-		
+			temp = list.get(list.indexOf(temp)-1);	
 	}
+	
+	/**
+	 * Method which setting actual Crossword on next
+	 */
 	public void next(){
 		if( list.indexOf(temp)>=0 && list.indexOf(temp)<list.size()-1)
 			temp = list.get(list.indexOf(temp)+1);

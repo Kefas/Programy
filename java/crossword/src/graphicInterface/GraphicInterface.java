@@ -5,8 +5,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -18,13 +16,20 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
+import com.itextpdf.text.DocumentException;
+
 import board.ConcreteStrategy;
+import board.HardStrategy;
 import browser.CwBrowser;
 
 public class GraphicInterface extends JFrame implements ActionListener{
+	
+	private static final long serialVersionUID = 1L;
 	static GraphicInterface gui;
+	ExceptionFrame eframe;
 	private JSpinner height;
 	private JSpinner width;
 	private JLabel lab1;
@@ -50,8 +55,6 @@ public class GraphicInterface extends JFrame implements ActionListener{
 	private MyPanel panel;
 	private JButton but5;
 	private JRadioButton easy;
-	private JLabel lab6;
-	private JLabel lab7;
 	private JRadioButton hard;
 	private ButtonGroup radioPanel;
 	
@@ -66,13 +69,13 @@ public class GraphicInterface extends JFrame implements ActionListener{
 	public void initComponent(){
 		
 		
-		height = new JSpinner();
-		width = new JSpinner();
+		height = new JSpinner(new SpinnerNumberModel(5,5,12,1));
+		width = new JSpinner(new SpinnerNumberModel(5,5,12,1));
 		lab1 = new JLabel(" Szerokoœæ: ");
 		lab2 = new JLabel(" Wysokoœæ: ");
-		lab3 = new JLabel("               ");
-		lab4 = new JLabel("               ");
-		lab5 = new JLabel("               Plik z has³ami do krzy¿ówki: ");
+		lab3 = new JLabel("             ");
+		lab4 = new JLabel("             ");
+		lab5 = new JLabel("             Plik z has³ami do krzy¿ówki: ");
 		txt1 = new JTextField("cwdb.txt", 20);
 		but2 = new JButton(" ... ");
 		
@@ -158,7 +161,6 @@ public class GraphicInterface extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		revalidate();
 		repaint();
 		jfc = new JFileChooser();
@@ -169,27 +171,19 @@ public class GraphicInterface extends JFrame implements ActionListener{
 				try {
 					browser.save(filePath.substring(0,filePath.lastIndexOf('\\')));
 				//System.out.println(filePath.substring(0,filePath.lastIndexOf('\\')));
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (Exception e) {
+					this.printError(e);
 				}
 			}
 		}
 		else if( z == open){
 			if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-				filePath = jfc.getSelectedFile().getPath();
-				
+				filePath = jfc.getSelectedFile().getPath();			
 				try {
 					browser.load(filePath.substring(0,filePath.lastIndexOf('\\')));
-					
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				} catch (Exception e) {
+					this.printError(e);
+				}			
 				revalidate();
 				repaint();
 				panel.update(browser.getCw());
@@ -200,29 +194,40 @@ public class GraphicInterface extends JFrame implements ActionListener{
 			System.exit(NORMAL);
 		}
 		//generate
-		else if(z == but1){		
-			
+		else if(z == but1){			
+			try{
 			if(easy.isSelected())
 				browser.generateCw((int)height.getValue(), (int)width.getValue(), new ConcreteStrategy());
 			else{
-					
+				browser.generateCw((int)height.getValue(), (int)width.getValue(), new HardStrategy());	
 			}
-			panel.update(browser.getCw());		
+			panel.update(browser.getCw());
+			}
+			catch(Exception e){
+				this.printError(e);
+			}
 		}
 		else if(z == but2){
 			if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 			
-//				tu mo¿na rzuciæ wyjatek co jeœli plik nie jest .txt				
 				cwdbFilePath = jfc.getSelectedFile().getAbsolutePath();
 				txt1.setText(cwdbFilePath);
 				try {
 					browser.updateCwBD(cwdbFilePath);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+					
+				} catch (Exception e) {
+					this.printError(e);	
 				}
 		} 
 		else if(z == print){
-//			finish'em
+			jfc = new JFileChooser();
+			if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+				try {
+					panel.printToPDF(jfc.getSelectedFile());
+				} catch (FileNotFoundException | DocumentException e) {
+					this.printError(e);
+				}
+			}
 			
 		}
 		else if(z == but3){
@@ -241,6 +246,15 @@ public class GraphicInterface extends JFrame implements ActionListener{
 		
 	}
 
-	
+	private void printError(Exception e) {
+		eframe = new ExceptionFrame(e);
+		eframe.setTitle("ERROR");
+		eframe.setResizable(false);
+		eframe.setLocation(450,350);
+		eframe.setSize(400,100);
+		eframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		eframe.setVisible(true); 
+		repaint();	
+	}
 	
 }
