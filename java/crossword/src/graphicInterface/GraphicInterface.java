@@ -4,7 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -18,8 +18,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
-
-import com.itextpdf.text.DocumentException;
 
 import board.ConcreteStrategy;
 import board.HardStrategy;
@@ -59,7 +57,7 @@ public class GraphicInterface extends JFrame implements ActionListener{
 	private ButtonGroup radioPanel;
 	
 	
-	public GraphicInterface() throws FileNotFoundException {
+	public GraphicInterface() throws MyException {
 		// TODO Auto-generated constructor stub
 		this.setLayout(new FlowLayout());
 		browser = new CwBrowser(cwdbFilePath);
@@ -73,9 +71,9 @@ public class GraphicInterface extends JFrame implements ActionListener{
 		width = new JSpinner(new SpinnerNumberModel(5,5,12,1));
 		lab1 = new JLabel(" Szerokoœæ: ");
 		lab2 = new JLabel(" Wysokoœæ: ");
-		lab3 = new JLabel("             ");
-		lab4 = new JLabel("             ");
-		lab5 = new JLabel("             Plik z has³ami do krzy¿ówki: ");
+		lab3 = new JLabel("           ");
+		lab4 = new JLabel("           ");
+		lab5 = new JLabel("          Plik z has³ami do krzy¿ówki: ");
 		txt1 = new JTextField("cwdb.txt", 20);
 		but2 = new JButton(" ... ");
 		
@@ -144,8 +142,14 @@ public class GraphicInterface extends JFrame implements ActionListener{
 		
 	}
 	
-	static public void main(String args[]) throws FileNotFoundException{
-		gui = new GraphicInterface();
+	static public void main(String args[]){
+		try{
+			gui = new GraphicInterface();
+		}
+		catch (Exception e){
+			MyException ex = new MyException("Otworzenie pliku z has³ami nie powiod³o siê");
+			gui.printError(ex);
+		}
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				gui.setTitle("Generator krzy¿ówek");
@@ -166,28 +170,29 @@ public class GraphicInterface extends JFrame implements ActionListener{
 		jfc = new JFileChooser();
 		Object z = arg0.getSource();
 		if (z == save){
+			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
 				filePath = jfc.getSelectedFile().getPath();			
 				try {
-					browser.save(filePath.substring(0,filePath.lastIndexOf('\\')));
+					browser.save(filePath);
 				//System.out.println(filePath.substring(0,filePath.lastIndexOf('\\')));
-				} catch (Exception e) {
+				} catch (MyException e) {
 					this.printError(e);
 				}
 			}
 		}
 		else if( z == open){
+			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 				filePath = jfc.getSelectedFile().getPath();			
 				try {
-					browser.load(filePath.substring(0,filePath.lastIndexOf('\\')));
-				} catch (Exception e) {
+					browser.load(filePath);
+				} catch (MyException e) {
 					this.printError(e);
-				}			
 				revalidate();
 				repaint();
 				panel.update(browser.getCw());
-				
+				}
 			}
 		}
 		else if(z == exit){
@@ -203,32 +208,33 @@ public class GraphicInterface extends JFrame implements ActionListener{
 			}
 			panel.update(browser.getCw());
 			}
-			catch(Exception e){
+			catch(MyException e){
 				this.printError(e);
 			}
 		}
 		else if(z == but2){
+//			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 			
 				cwdbFilePath = jfc.getSelectedFile().getAbsolutePath();
 				txt1.setText(cwdbFilePath);
 				try {
-					browser.updateCwBD(cwdbFilePath);
-					
+					browser.updateCwBD(cwdbFilePath);	
 				} catch (Exception e) {
 					this.printError(e);	
 				}
 		} 
 		else if(z == print){
+//			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			jfc = new JFileChooser();
 			if(jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
 				try {
 					panel.printToPDF(jfc.getSelectedFile());
-				} catch (FileNotFoundException | DocumentException e) {
+				} 
+				catch( MyException e){
 					this.printError(e);
 				}
-			}
-			
+			} 	
 		}
 		else if(z == but3){
 			browser.prev();			
@@ -244,6 +250,7 @@ public class GraphicInterface extends JFrame implements ActionListener{
 		}
 		
 		
+		
 	}
 
 	private void printError(Exception e) {
@@ -252,9 +259,8 @@ public class GraphicInterface extends JFrame implements ActionListener{
 		eframe.setResizable(false);
 		eframe.setLocation(450,350);
 		eframe.setSize(400,100);
-		eframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		eframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		eframe.setVisible(true); 
-		repaint();	
 	}
 	
 }

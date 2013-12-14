@@ -1,7 +1,10 @@
 package browser;
 
+import graphicInterface.MyException;
+
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -27,14 +30,14 @@ public class CwWriter implements Writer {
 	 * @throws Exception 
 	 */
 	@Override	
-	public void write(Crossword cw) throws Exception{
+	public void write(Crossword cw) throws MyException{
 	
 		FileWriter writer = null;
 		try{
 			//throw new Exception("No crossword to save");
 			Iterator<CwEntry> iter = cw.getROEntryIter();
 			if(!iter.hasNext())
-				throw new Exception("No crossword to save");
+				throw new MyException("No crossword to save");
 			writer = new FileWriter(file.getAbsolutePath() + "\\" + Long.toString(getUniqueID()));
 		
 			writer.write(cw.getHeight() + " " + cw.getWidth() + " " + cw.getStrategyInt() + "\n");
@@ -44,15 +47,20 @@ public class CwWriter implements Writer {
 			}
 		}
 		catch (NullPointerException e){
-			throw new Exception("Null pointer exception");
+			throw new MyException("Null pointer exception");
 		}
-		catch (Exception e){
-			throw e;
+		catch (IOException e){
+			throw new MyException("Can't save in this file");
 			
 		}
 		finally{
-			System.out.println("close");
-			writer.close();
+			if(writer != null){
+				try {
+					writer.close();
+				} catch (IOException e) {
+					throw new MyException("Can't save in this file");
+				}
+			}
 		}
 	}
 

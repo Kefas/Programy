@@ -61,7 +61,7 @@ public class Crossword {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		String line = reader.readLine();
 		String tab[] = line.split(" ");
-		b = new Board(Integer.parseInt(tab[0]), Integer.parseInt(tab[1]));
+		b = new Board(Integer.parseInt(tab[0]+1), Integer.parseInt(tab[1])+1);
 		if(Integer.parseInt(tab[2]) == 0)
 			strategy = new ConcreteStrategy();
 		else

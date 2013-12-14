@@ -1,7 +1,10 @@
 package browser;
+import graphicInterface.MyException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
+
 import dictionary.InteliCwDB;
 import board.Crossword;
 import board.Strategy;
@@ -18,11 +21,16 @@ public class CwBrowser {
 	 * @param filePath filePath to Crossword Database file
 	 * @throws FileNotFoundException
 	 */
-	public CwBrowser(String filePath) throws FileNotFoundException{
+	public CwBrowser(String filePath) throws MyException{
 		if(filePath == null)
 			filePath = "cwdb.txt";
+		try{
 		cwdb = new InteliCwDB(filePath);	
 		list = new LinkedList<Crossword>();
+		}
+		catch (IOException e){
+			throw new MyException("Nie mo¿na otworzyæ pliku z has³ami");
+		}
 		
 	}
 	
@@ -33,7 +41,7 @@ public class CwBrowser {
 	 * @param width Width of Board
 	 * @param strategy Strategy of crossword
 	 */
-	public void generateCw(int height, int width, Strategy strategy){
+	public void generateCw(int height, int width, Strategy strategy) throws MyException{
 		Crossword cw = new Crossword(height,  width, cwdb);
 		cw.generate(strategy);
 		temp = cw;
@@ -46,7 +54,7 @@ public class CwBrowser {
 	 * @param folderPath folderPath where Crossword should be saved
 	 * @throws Exception 
 	 */
-	public void save(String folderPath) throws Exception{
+	public void save(String folderPath) throws MyException{
 		writer = new CwWriter(folderPath);
 		writer.write(temp);
 
@@ -59,7 +67,7 @@ public class CwBrowser {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	public void load(String folderPath) throws NumberFormatException, IOException{
+	public void load(String folderPath) throws MyException{
 		reader = new CwReader(folderPath);
 		list.addAll(reader.getAllCws());
 		temp = list.getLast();	
@@ -80,8 +88,14 @@ public class CwBrowser {
 	 * @param filePath FilePath 
 	 * @throws FileNotFoundException
 	 */
-	public void updateCwBD(String filePath) throws FileNotFoundException{
-		cwdb = new InteliCwDB(filePath);
+	public void updateCwBD(String filePath) throws MyException{
+		try{
+//			System.err.println("emm");
+			cwdb = new InteliCwDB(filePath);
+		}
+		catch (FileNotFoundException e){
+			throw new MyException("Nie mo¿na odnaleŸæ pliku");
+		}
 	}
 
 	/**

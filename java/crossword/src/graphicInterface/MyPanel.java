@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Iterator;
 
 import javax.swing.JPanel;
@@ -43,21 +44,36 @@ public class MyPanel extends JPanel {
 	 * @throws FileNotFoundException
 	 * @throws DocumentException
 	 */
-	public void printToPDF(File file) throws FileNotFoundException, DocumentException{
-		Document document = new Document(PageSize.A4.rotate(), 10, 10, 10, 10);
-		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file.getAbsoluteFile() + ".pdf"));
-		writer.setViewerPreferences(PdfWriter.PageModeUseOC | PdfWriter.FitWindow);
-        writer.setPdfVersion(PdfWriter.VERSION_1_5);
-        document.open();
-        PdfContentByte canvas = writer.getDirectContent();
-        
-        Graphics2D g2 = new PdfGraphics2D(canvas, PageSize.A4.getHeight(), PageSize.A4.getWidth());
-        g2.scale(0.85,0.85);
-        g2.translate(50, 50);
-        canvas.moveTo(50, 50);
-        this.paint(g2);
-        g2.dispose();
-        document.close();
+	public void printToPDF(File file) throws MyException{
+		Document document = null;
+		PdfWriter writer = null;
+		Graphics2D g2 = null;
+		try{
+			document = new Document(PageSize.A4.rotate(), 10, 10, 10, 10);
+			writer = PdfWriter.getInstance(document, new FileOutputStream(file.getAbsoluteFile() + ".pdf"));
+			writer.setViewerPreferences(PdfWriter.PageModeUseOC | PdfWriter.FitWindow);
+	        writer.setPdfVersion(PdfWriter.VERSION_1_5);
+	        document.open();
+//	        BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN,  
+//                    BaseFont.CP1250, BaseFont.CACHED);  
+//            Font f = new Font(bf, 16, Font.NORMAL);  
+	        PdfContentByte canvas = writer.getDirectContent();
+	        
+	        g2 = new PdfGraphics2D(canvas, PageSize.A4.getHeight(), PageSize.A4.getWidth());
+	        g2.scale(0.85,0.85);
+	        g2.translate(50, 50);
+	        canvas.moveTo(50, 50);
+	        this.paint(g2);
+		}
+		catch(DocumentException | IOException e){
+			throw new MyException("B³¹d przy zapisie do pdf");
+		}
+		finally{
+			if(g2 != null)
+				g2.dispose();
+			if(document != null)
+				document.close();
+		}
 	}
 
 	/**

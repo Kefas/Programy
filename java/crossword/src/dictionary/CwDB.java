@@ -93,7 +93,7 @@ public class CwDB {
 	protected void createDB(String filename) throws FileNotFoundException{
 		File myfile = null;
 		Scanner in = null;
-		
+//		System.err.println("here");
 		try{
 			myfile = new File(filename);
 			in = new Scanner(myfile, "UTF-8");
