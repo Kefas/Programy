@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Formularz do zakĹ‚adania blogu</title>
+</head>
+<body>
+	<table>
+		
+		<tr>
+			<td>Nazwa uĹĽytkownika</td>
+			<td>
+				<form method="get" action="wpis.php">
+					<p><input type="text" name="wpisUser"/></p>
+				</form>
+			</td>
+			<td>HasĹ‚o</td>
+			<td>
+				<form method="get" action="wpis.php">
+					<p><input type="password" name="wpisPassword"/></p>
+				</form>
+			</td>
+		</tr>	
+		<tr>
+			<td>Wpis</td>	
+			<td colspan="3">
+				<form method="get" action="wpis.php">
+					<p><textarea name="opis" cols="20" rows="5">Opis...</textarea></p>
+				</form>
+			</td>	
+		</tr>
+		<tr>
+			<td>Data</td>
+			<td>
+				<form method="get" action="wpis.php">
+					<p><input type="date" name="wpisData" /></p>
+				</form>
+			</td>
+			
+		</tr>
+		
+		<tr>
+			<td>Plik</td>
+			<td>
+				<form method="get" action="wpis.php">
+					<p><input type="file" name="file1" /></p>
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<form method="get" action="wpis.php">
+					<p><input type="file" name="file2" /></p>
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<form method="get" action="wpis.php">
+					<p><input type="file" name="file3" /></p>
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<form method="get" action="wpis.php">
+					<p><input type="submit" name="submit" value="Prześlij"/></p>
+				</form>
+			</td>
+		</tr>
+		
+	</table>
+		 	
+	
+	
+	
+</body>
+</html>

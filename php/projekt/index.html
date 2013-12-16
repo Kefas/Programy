@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Formularz do zakładania blogu</title>
+</head>
+<body>
+	<table>
+		
+			<tr>
+				<td>Nazwa blogu</td>
+				<td>
+					<form action="blog.php">
+						<p><input type="text" name="blog" /></p>
+					</form>
+				</td>
+			</tr>
+			<tr>	
+				<td>Nazwa użytkownika</td>
+				<td>
+					<form action="blog.php">
+						<p><input type="text" name="user"/></p>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>Hasło</td>
+				<td>
+					<form action="blog.php">
+						<p><input type="text" name="password"/></p>
+					</form>
+				</td>
+			</tr>
+			<tr> 		
+				<td>Opis</td>	
+				<td>
+					<form action="blog.php">
+						<p><textarea name="opis" cols="50" rows="5">Opis...</textarea></p>
+					</form>
+				</td>	
+			</tr>
+			<tr>
+				<td>
+					<form method="get" action="blog.php">
+						<p><input type="submit" name="submit" value="Prześlij"/></p>
+					</form>
+				</td>
+			</tr>
+	</table>
+		 	
+	
+	
+	
+</body>
+</html>
