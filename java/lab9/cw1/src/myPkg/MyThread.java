@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Date;
 
 public class MyThread implements Runnable {
 	private Socket clientSocket;
@@ -22,9 +23,10 @@ public class MyThread implements Runnable {
 	                                new InputStreamReader(
 	                                clientSocket.getInputStream()));
 	        String inputLine;
+	        
 	 
 	        while ((inputLine = in.readLine()) != null) {
-	             out.println(inputLine);
+	             out.println(new Date().toString() + " Server: "+   inputLine);
 	        }
 	        out.close();
 	        in.close();

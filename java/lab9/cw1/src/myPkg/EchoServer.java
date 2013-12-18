@@ -8,11 +8,11 @@ import java.util.concurrent.Executors;
 public class EchoServer {
     public static void main(String[] args) throws IOException {
     	ServerSocket serverSocket = null;
-    	ExecutorService exec = Executors.newCachedThreadPool();
+    	ExecutorService exec = Executors.newFixedThreadPool(2);
         try {
-            serverSocket = new ServerSocket(6664);
+            serverSocket = new ServerSocket(6666);
         } catch (IOException e) {
-            System.out.println("Could not listen on port: 6664");
+            System.out.println("Could not listen on port: 6666");
             System.exit(-1);
         }
         

@@ -7,49 +7,26 @@
 	<title>Formularz do zakładania blogu</title>
 </head>
 <body>
-	<table>
-		
-		<tr>
-			<td>Ocena</td>
-			<td>
-				<select name="ocena">
-					<option>Pozytywny</option>
-					<option>Neutralny</option>
-					<option>Negatywny</option>	
-				</select>
-			</td>
-		</tr>	
-			
-		<tr>
-			
-			<td>Opis</td>	
-			<td>
-				<form method="get" action="koment.php">
-					<p><textarea name="opis" cols="50" rows="5">Opis...</textarea></p>
+	<form method="get" action="koment.php">
+		<p>Komentarz<br/>	
+			<select name="ocena">
+				<option>Pozytywny</option>
+				<option>Neutralny</option>
+				<option>Negatywny</option>	
+			</select>
+		</p>
+		<p>
+			Opis <br />
+			<textarea name="opis" cols="50" rows="5">Opis...</textarea>
+		</p>
+		<p>
+			Podpis <br />
+			<input type="text" name="caption"/>
+		</p>			
+		<p><input type="reset" name="clear" value="Wyczyść"/></p>		
+		<p><input type="submit" name="submit" value="Prześlij"/></p>
 				</form>
-			</td>	
-		</tr>
-		<tr>
-			<td>Podpis</td>
-			<td>
-				<form method="get" action="koment.php">
-					<p><input type="text" name="caption"/></p>
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<form method="get" action="koment.php">
-					<p><input type="reset" name="clear" value="Wyczyść"/></p>
-				</form>
-			</td>
-			<td>
-				<form method="get" action="koment.php">
-					<p><input type="submit" name="submit" value="Prześlij"/></p>
-				</form>
-			</td>
-		</tr>
-	</table>
+	
 	
 </body>
 </html>
