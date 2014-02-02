@@ -1,0 +1,11 @@
+function validateForm(date){
+	var date = document.getElementsByName("wpisData")[0].value;
+	var matches = /^(\d{4})[-\/](\d{2})[-\/](\d{2})$/.exec(date);
+    if (matches == null){
+    	console.log("wtf");
+    	document.getElementsByName("wpisData")[0].value = "10";
+    	return false;
+    }
+    
+	
+}

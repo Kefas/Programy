@@ -4,38 +4,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Formularz do zak³adania blogu</title>
+	<title>Formularz do zakï¿½adania blogu</title>
 </head>
 <body>
 <?php
 	header('Content-type: text/html');
-	$blog = $_GET['blog'];
-	$user = $_GET['user'];
-	$password = $_GET['password'];
-	$opis = $_GET['opis'];
+	$blog = trim($_POST['blog']," \n\t\r");
+	$user = $_POST['user'];
+	$password = $_POST['password'];
+	$opis = $_POST['opis'];
 
-	
 	$dir = dir('.');
-	
-	while($file = $dir->read())
- 	 if($file != '.' && $file != '..') 
-	 	if(strcmp(strtolower($file),strtolower($blog)) == 0)
-			echo 'Blog o takiej nazwie "' . $blog . '"' . ' ju¿ istnieje! <br />';
-		else{
-			echo 'Utworzenie katalogu powiod³o siê';
-			mkdir($blog);
+	if(file_exists($blog))
+		echo 'Blog o takiej nazwie "' . $blog . '"' . ' juÅ¼ istnieje! <br />';
+	else{
+		//echo $blog . " " . $file . '<br/>';
+		$fpl = fopen("semafor_nowy.txt","r+");
+		if (flock($fpl, LOCK_EX)){
+			if(file_exists($blog)){
+				echo 'Blog o takiej nazwie "' . $blog . '"' . ' juÅ¼ istnieje! <br />';
+				break;
+			}
+			echo 'Utworzenie blogu powiodÅ‚o siÄ™';
+			mkdir(strtolower($blog));
 			$fp = fopen($blog . '/info.txt',w);
 			fwrite($fp,$user."\n");
 			fwrite($fp, md5($password)."\n");
-			fwrite($fp, $opis);
+			fwrite($fp, $opis);			
 			fclose($fp);
-			break;
+			flock($fpl, LOCK_UN);
 		}
-    		
-	 
+		else 
+			echo '<p>Problemy z blokadÄ…</p>';
+		fclose($fpl);
+	}	 
 	$dir->close();
-	
-	
+	include('menu.php');
+		
 ?>
 </body>
 </html>
