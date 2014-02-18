@@ -1,4 +1,4 @@
-package myPkg;
+ package myPkg;
 
 import java.io.*;
 import java.net.*;
