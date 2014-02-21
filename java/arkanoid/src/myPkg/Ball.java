@@ -2,27 +2,28 @@ package myPkg;
 
 import java.util.concurrent.TimeUnit;
 
-import com.sun.org.apache.xerces.internal.impl.RevalidationHandler;
-
-import sun.awt.RepaintArea;
-
 public class Ball implements Runnable {
 	private int x;
 	private int y;
 	private int radius;
 	private int Vx;
 	private int Vy;
-	private boolean alive = true;
-	private boolean pause = false;
+	private boolean alive;
+	private boolean pause;
 	private int oldVx;
 	private int oldVy;
+	private boolean stick;
+	private int paddleX;
 	
 	public Ball(){
 		x = 300;
 		y = 300;
 		radius = 7;
 		Vx = 4;
-		Vy = -5;
+		Vy = -10;
+		stick = false;
+		alive = true;
+		pause = false;
 		
 	}
 	public Ball(int x, int y, int radius, int vx, int vy) {
@@ -114,9 +115,24 @@ public class Ball implements Runnable {
 			}
 			
 		}
+	
 		
+	}
+	public boolean isStick() {
+		return stick;
+	}
+	public void setStick(boolean stick) {
+		this.stick = stick;
+	}
+	public void setPaddleX(int paddleX) {
+		this.paddleX = paddleX;
 		
-		
+	}
+	public int getPaddleX(){
+		return paddleX;
+	}
+	public boolean isPaused() {
+		return pause;	
 	}
 	
 	

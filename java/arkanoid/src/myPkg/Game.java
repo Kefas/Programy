@@ -1,6 +1,5 @@
 package myPkg;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,31 +13,19 @@ public class Game{
 	private List<Box> box;
 	private List<Drop> drop;
 	private ExecutorService exec;
+	private int score;
+	private int live;
+
 	
 	public Game(){
 		setPaddle(new Paddle(425,650,200,10));
 		drop = new LinkedList<Drop>();
 		balls = new ArrayList<Ball>();
 		box = new LinkedList<Box>();
+		live = 3;
+		
 		
 		balls.add(new Ball());
-//		balls.add(new Ball(300,200,7,-5,-3));
-//		balls.add(new Ball(300,200,7,-2,-4));
-//		balls.add(new Ball(300,200,7,-5,-3));
-//		balls.add(new Ball(300,200,7,-3,-5));
-//		balls.add(new Ball(300,200,7,-4,-1));
-//		balls.add(new Ball(300,200,8,-5,-2));
-//		balls.add(new Ball(300,200,8,-2,-3));
-//		balls.add(new Ball(300,200,8,-5,-2));
-//		balls.add(new Ball(300,200,8,-3,-3));
-//		balls.add(new Ball(300,200,8,-2, 2 ));
-//		balls.add(new Ball(300,200,8,5,-2));
-//		balls.add(new Ball(300,200,8,2,-3));
-//		balls.add(new Ball(300,200,8,5,-2));
-//		balls.add(new Ball(300,200,8,3,-3));
-//		balls.add(new Ball(300,200,8,2, 2 ));
-		
-		
 			
 		
 		for(int i=0;i<19;i++)
@@ -52,7 +39,22 @@ public class Game{
 			exec.execute(balls.get(i));
 		
 	}
-
+	public void stickOn(int ballIndex, int paddleX){
+		balls.get(ballIndex).pause();
+		balls.get(ballIndex).setStick(true);
+		balls.get(ballIndex).setPaddleX(paddleX);
+	}
+	public void stickOff() {
+		for(int i=0; i<balls.size();i++)
+			if(balls.get(i).isPaused()){
+				balls.get(i).pause();
+				balls.get(i).setStick(false);
+			}
+	
+	}
+	
+	
+	
 	public void setPaddle(Paddle paddle) {
 		this.paddle = paddle;		
 	}
@@ -90,8 +92,36 @@ public class Game{
 	}
 	public void readGame(){
 //		File file = new File("")
-		
+	
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getLive() {
+		return live;
+	}
+
+	public void setLive(int live) {
+		this.live = live;
+	}
+
+	public void subLive() {
+		this.live--;		
+	}
+	public void addLive() {
+		this.live++;
+	}
+
+	public void addScore(int i) {
+		this.score += i;
 		
 	}
+	
 	
 }
