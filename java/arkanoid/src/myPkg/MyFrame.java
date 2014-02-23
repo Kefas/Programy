@@ -1,5 +1,6 @@
 package myPkg;
 
+import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -10,25 +11,40 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Random;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class MyFrame extends JFrame implements KeyListener, ActionListener, MouseListener {
+	
+	private static final long serialVersionUID = 1L;
 	static private MyFrame frame;
 	private MyPanel panel;
 	private int width;
 	private int height;
 	private Timer timer;
+	private java.util.Timer timer2;
 	private boolean press;
 	private int key;
 	private Random generator;
 	private boolean game = true;
-	private int r;
+	
 	private double z;
 	private double a;
 	private int dx;
+	
+	class MyTimerTask extends TimerTask{
+
+		@Override
+		public void run() {
+			panel.repaint();
+			
+		}
+		
+	}
+	MyTimerTask timer2_task;
 
 	public MyFrame() {
 		initComponent();
@@ -38,8 +54,11 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 		timer.setInitialDelay(0);
 		timer.setCoalesce(true);
 		generator = new Random();
-		r = 140;
-
+		
+		timer2_task = new MyTimerTask();
+		timer2 = new java.util.Timer();
+		timer2.schedule(timer2_task, 0, 10 );
+		
 	}
 
 	private void initComponent() {
@@ -52,7 +71,7 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 
 	public static void main(String[] args) {
 		frame = new MyFrame();
-
+		frame.setBackground(Color.gray);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				frame.setTitle("Arkanoid");
@@ -62,6 +81,7 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 				frame.timer.start();
+				
 			}
 		});
 
@@ -103,6 +123,7 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 			// panel.repaint();
 			// }
 			// }
+			
 			Paddle paddle = panel.getGame().getPaddle();
 			List<Drop> drop = panel.getGame().getDrop();
 			List<Ball> balls = panel.getGame().getBall();
@@ -114,37 +135,31 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 					balls.get(i).setPaddleX(paddle.getX());
 					
 				} else {
-
-					if (balls.get(i).getX() - Math.abs(balls.get(i).getVx()) <= 10
-							|| balls.get(i).getX() + balls.get(i).getRadius()
-									+ Math.abs(balls.get(i).getVx()) >= 1010) {
+					//SCIANY
+					if (balls.get(i).getX() - Math.abs(balls.get(i).getVx()) <= 10|| balls.get(i).getX() + balls.get(i).getRadius()	+ Math.abs(balls.get(i).getVx()) >= 1010) {
 						// balls.get(i).setVx(0);
 						// System.out.println(balls.get(i).getX());
 						balls.get(i).setOppositeVx();
-					}
-					if (balls.get(i).getY() + balls.get(i).getVy() <= 11)
+					}//SUFIT
+					if (balls.get(i).getVy()<0 && balls.get(i).getY() + balls.get(i).getVy() <= 12)
 						balls.get(i).setOppositeVy();
 
-					if (balls.get(i).getY() + balls.get(i).getRadius()
-							+ balls.get(i).getVy() >= paddle.getY()
-							&& balls.get(i).getY() <= paddle.getY()
-									+ paddle.getHeight())
+					if (balls.get(i).getY() + balls.get(i).getRadius()+ balls.get(i).getVy() >= paddle.getY()&& balls.get(i).getY() <= paddle.getY()+ paddle.getHeight())
 						if (balls.get(i).getX()+ (int) (balls.get(i).getRadius() / 2) >= paddle.getX()&& balls.get(i).getX()+ (int) (balls.get(i).getRadius() / 2) <= paddle.getX() + paddle.getWidth()) {
 							// odbicie piłki jak od okręgu o promieniu r
+							int r = paddle.getR();
 							dx = paddle.getX()+ (int) ((double) paddle.getWidth() / 2)- balls.get(i).getX()+ (int) (balls.get(i).getRadius() / 2);
 							z = Math.sqrt(Math.pow(r, 2) - Math.pow(dx, 2));
 							a = (double) Math.abs(balls.get(i).getVy()) / z;
 							System.out.println(dx * a);
 							balls.get(i).setOppositeVy();
 							balls.get(i).setVx((int) (-dx * a));
-							panel.getGame().stickOn(i, paddle.getX());
+							if(panel.getGame().isBonusStick())
+								panel.getGame().stickOn(i, paddle.getX());
 						}
 
 					// piłka poniżej pada
-					if (balls.get(i).getY()
-							+ (int) (balls.get(i).getRadius() / 2) > paddle
-								.getY()) {
-						balls.get(i).dead();
+					if (balls.get(i).getY()	+ (int) (balls.get(i).getRadius() / 2) > paddle.getY()) {balls.get(i).dead();
 						// System.out.println("deaddd" + balls.get(i).getY());
 					}
 					// uderzenie o boxy
@@ -152,27 +167,12 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 
 						if (panel.getGame().getBox().get(j).isExist()) {
 							// prawo
-							if (balls.get(i).getVx() < 0
-									&& balls.get(i).getY()
-											+ (int) (balls.get(i).getRadius() / 2) >= panel
-											.getGame().getBox().get(j).getY() - 3
-									&& balls.get(i).getY()
-											+ (int) (balls.get(i).getRadius() / 2) <= panel
-											.getGame().getBox().get(j).getY()
-											+ 3
-											+ panel.getGame().getBox().get(j)
-													.getHeight()
-									&& balls.get(i).getX()
-											- Math.abs(balls.get(i).getVx()) <= panel
-											.getGame().getBox().get(j).getX()
-											+ panel.getGame().getBox().get(j)
-													.getWidth()
-									&& balls.get(i).getX()
-											- Math.abs(balls.get(i).getVx()) >= panel
-											.getGame().getBox().get(j).getX()
-											+ panel.getGame().getBox().get(j)
-													.getWidth()
-											- Math.abs(balls.get(i).getVx())) {
+							if (balls.get(i).getVx() < 0 
+									&& balls.get(i).getY()+ (int) (balls.get(i).getRadius() / 2) >= panel.getGame().getBox().get(j).getY() - 3 
+									&& balls.get(i).getY()+ (int) (balls.get(i).getRadius() / 2) <= panel.getGame().getBox().get(j).getY()+ 3+ panel.getGame().getBox().get(j).getHeight()
+									&& balls.get(i).getX()- Math.abs(balls.get(i).getVx()) <= panel.getGame().getBox().get(j).getX()	+ panel.getGame().getBox().get(j).getWidth()
+									&& balls.get(i).getX()- Math.abs(balls.get(i).getVx()) >= panel.getGame().getBox().get(j).getX()+ panel.getGame().getBox().get(j).getWidth()- Math.abs(balls.get(i).getVx())
+									) {
 
 								balls.get(i).setOppositeVx();
 								panel.getGame().destroy(j);
@@ -185,26 +185,12 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 							// lewo
 
 							else if (balls.get(i).getVx() > 0
-									&& balls.get(i).getY()
-											+ (int) (balls.get(i).getRadius() / 2) >= panel
-											.getGame().getBox().get(j).getY() - 3
-									&& balls.get(i).getY()
-											+ (int) (balls.get(i).getRadius() / 2) <= panel
-											.getGame().getBox().get(j).getY()
-											+ panel.getGame().getBox().get(j)
-													.getHeight() + 3
-									&& balls.get(i).getX()
-											+ balls.get(i).getRadius() <= panel
-											.getGame().getBox().get(j).getX()
-											+ balls.get(i).getVx()
-									&& balls.get(i).getX()
-											+ balls.get(i).getRadius()
-											+ Math.abs(balls.get(i).getVx()) >= panel
-											.getGame().getBox().get(j).getX()
-									&& balls.get(i).getX()
-											+ balls.get(i).getRadius() <= panel
-											.getGame().getBox().get(j).getX()
-											+ Math.abs(balls.get(i).getVx())) {
+									&& balls.get(i).getY() + (int) (balls.get(i).getRadius() / 2) >= panel.getGame().getBox().get(j).getY() - 3
+									&& balls.get(i).getY() + (int) (balls.get(i).getRadius() / 2) <= panel.getGame().getBox().get(j).getY()+ panel.getGame().getBox().get(j).getHeight() + 3
+									&& balls.get(i).getX() + balls.get(i).getRadius() <= panel.getGame().getBox().get(j).getX()+ balls.get(i).getVx()
+									&& balls.get(i).getX() + balls.get(i).getRadius() + Math.abs(balls.get(i).getVx()) >= panel.getGame().getBox().get(j).getX()
+									&& balls.get(i).getX()+ balls.get(i).getRadius() <= panel.getGame().getBox().get(j).getX()+ Math.abs(balls.get(i).getVx())
+									) {
 
 								balls.get(i).setOppositeVx();
 								panel.getGame().destroy(j);
@@ -216,25 +202,11 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 							}
 							// dól
 							else if (balls.get(i).getVy() < 0
-									&& balls.get(i).getY() <= panel.getGame()
-											.getBox().get(j).getY()
-											+ panel.getGame().getBox().get(j)
-													.getHeight()
-											- balls.get(i).getVy()
-									&& balls.get(i).getY() >= panel.getGame()
-											.getBox().get(j).getY()
-											+ panel.getGame().getBox().get(j)
-													.getHeight() - 1) {
-								if (balls.get(i).getX()
-										+ (int) (balls.get(i).getRadius() / 2) >= panel
-										.getGame().getBox().get(j).getX() - 3
-										&& balls.get(i).getX()
-												+ (int) (balls.get(i)
-														.getRadius() / 2) <= panel
-												.getGame().getBox().get(j)
-												.getX()
-												+ panel.getGame().getBox()
-														.get(j).getWidth() + 3) {
+									&& balls.get(i).getY() <= panel.getGame().getBox().get(j).getY()+ panel.getGame().getBox().get(j).getHeight()- balls.get(i).getVy()
+									&& balls.get(i).getY() >= panel.getGame().getBox().get(j).getY()+ panel.getGame().getBox().get(j).getHeight() - 1) {
+								if (balls.get(i).getX()+ (int) (balls.get(i).getRadius() / 2) >= panel.getGame().getBox().get(j).getX() - 3
+										&& balls.get(i).getX()+ (int) (balls.get(i).getRadius() / 2) <= panel.getGame().getBox().get(j).getX()+ panel.getGame().getBox().get(j).getWidth() + 3
+										) {
 									balls.get(i).setOppositeVy();
 									panel.getGame().destroy(j);
 									// balls.get(i).setVx(0);
@@ -243,26 +215,13 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 									panel.setEvent(true);
 								}
 							}
-							// // //gora
+							// gora
 							else if (balls.get(i).getVy() > 0
-									&& balls.get(i).getY()
-											+ balls.get(i).getRadius() >= panel
-											.getGame().getBox().get(j).getY()
-											- Math.abs(balls.get(i).getVy())
-									&& balls.get(i).getY()
-											+ balls.get(i).getRadius() < panel
-											.getGame().getBox().get(j).getY()
-											+ Math.abs(balls.get(i).getVy())) {
-								if (balls.get(i).getX()
-										+ (int) (balls.get(i).getRadius() / 2) >= panel
-										.getGame().getBox().get(j).getX() - 3
-										&& balls.get(i).getX()
-												+ (int) (balls.get(i)
-														.getRadius() / 2) <= panel
-												.getGame().getBox().get(j)
-												.getX()
-												+ panel.getGame().getBox()
-														.get(j).getWidth() + 3) {
+									&& balls.get(i).getY()+ balls.get(i).getRadius() >= panel.getGame().getBox().get(j).getY()- Math.abs(balls.get(i).getVy())
+									&& balls.get(i).getY()+ balls.get(i).getRadius() < panel.getGame().getBox().get(j).getY()+ Math.abs(balls.get(i).getVy())) {
+								if (balls.get(i).getX()+ (int) (balls.get(i).getRadius() / 2) >= panel.getGame().getBox().get(j).getX() - 3
+										&& balls.get(i).getX()+ (int) (balls.get(i).getRadius() / 2) <= panel.getGame().getBox().get(j).getX()+ panel.getGame().getBox().get(j).getWidth() + 3
+										) {
 									balls.get(i).setOppositeVy();
 									panel.getGame().destroy(j);
 									// balls.get(i).setVx(0);
@@ -277,12 +236,15 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 
 				}
 				// removing ball
-				if (!balls.get(i).isAlive()
-						&& balls.get(i).getY() + balls.get(i).getRadius()
-								+ balls.get(i).getVy() >= 730) {
+				if (!balls.get(i).isAlive()&& balls.get(i).getY() + balls.get(i).getRadius()+ balls.get(i).getVy() >= 730) {
 					balls.remove(i);
-					panel.getGame().subLive();
-					panel.setEvent(true);
+					
+					if(panel.getGame().getLive() > 0 && balls.isEmpty()){
+						panel.getGame().addBall();
+						panel.getGame().subLive();
+						panel.setEvent(true);
+					}
+						
 				}
 
 			}
@@ -291,21 +253,16 @@ public class MyFrame extends JFrame implements KeyListener, ActionListener, Mous
 				// usuwanie dropów
 				if (drop.get(i).getY() + drop.get(i).getVy() >= 720)
 					drop.remove(i);
-				else if (drop.get(i).getY() + drop.get(i).getHeight() >= paddle
-						.getY()
-						&& drop.get(i).getY() <= paddle.getY()
-								+ paddle.getHeight())
-					if (drop.get(i).getX() + drop.get(i).getWidth() >= paddle
-							.getX()
-							&& drop.get(i).getX() <= paddle.getX()
-									+ paddle.getWidth()) {
+				else if (drop.get(i).getY() + drop.get(i).getHeight() >= paddle.getY()&& drop.get(i).getY() <= paddle.getY()+ paddle.getHeight())
+					if (drop.get(i).getX() + drop.get(i).getWidth() >= paddle.getX()&& drop.get(i).getX() <= paddle.getX()+ paddle.getWidth()) {
 						panel.getGame().collectDrop(drop.get(i));
 						drop.remove(i);
+					
 					}
 
 			}
 
-			panel.repaint();
+//			panel.repaint();
 		}
 	}
 

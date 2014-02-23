@@ -17,10 +17,10 @@ public class Ball implements Runnable {
 	
 	public Ball(){
 		x = 300;
-		y = 300;
+		y = 643;
 		radius = 7;
 		Vx = 4;
-		Vy = -10;
+		Vy = -7;
 		stick = false;
 		alive = true;
 		pause = false;
@@ -33,6 +33,9 @@ public class Ball implements Runnable {
 		this.radius = radius;
 		Vx = vx;
 		Vy = vy;
+		stick = false;
+		alive = true;
+		pause = false;
 	}
 	
 	
@@ -70,7 +73,8 @@ public class Ball implements Runnable {
 		return Vy;
 	}
 	public void setVy(int vy) {
-		Vy = vy;
+		if(vy > 2 && vy <16)
+			Vy = vy;
 	}
 	public void setOppositeVy(){
 		if(alive)

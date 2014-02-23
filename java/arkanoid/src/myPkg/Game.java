@@ -15,7 +15,7 @@ public class Game{
 	private ExecutorService exec;
 	private int score;
 	private int live;
-
+	private boolean bonusStick;
 	
 	public Game(){
 		setPaddle(new Paddle(425,650,200,10));
@@ -23,9 +23,10 @@ public class Game{
 		balls = new ArrayList<Ball>();
 		box = new LinkedList<Box>();
 		live = 3;
-		
+		bonusStick = false;
 		
 		balls.add(new Ball());
+		balls.add(new Ball(400,703,7,4,-5));
 			
 		
 		for(int i=0;i<19;i++)
@@ -53,7 +54,35 @@ public class Game{
 	
 	}
 	
+	public void lenghtenPaddle(){
+		paddle.setWidth(paddle.getWidth() + 30);
+//		paddle.setR(paddle.getR() + 10);
+	}
 	
+	public void shortenPaddle(){
+		paddle.setWidth(paddle.getWidth() - 30);
+//		paddle.setR(paddle.getR() - 30);
+	}
+	
+	public void increaseSpeed(){
+		for(int i=0;i<balls.size();i++){
+			if(balls.get(i).getVy() > 0)
+				balls.get(i).setVy(balls.get(i).getVy() + 2);
+			else
+				balls.get(i).setVy(balls.get(i).getVy() - 2);
+		}
+			
+	}
+	
+	public void decreaseSpeed(){
+		for(int i=0;i<balls.size();i++){
+			if(balls.get(i).getVy() > 0)
+				balls.get(i).setVy(balls.get(i).getVy() - 3);
+			else
+				balls.get(i).setVy(balls.get(i).getVy() + 3);
+		}
+			
+	}
 	
 	public void setPaddle(Paddle paddle) {
 		this.paddle = paddle;		
@@ -121,6 +150,23 @@ public class Game{
 	public void addScore(int i) {
 		this.score += i;
 		
+	}
+	
+	public void addBall(){
+		balls.add(new Ball());
+		exec.execute(balls.get(balls.size()-1));
+		if(balls.size() == 1){
+			balls.get(0).setX(paddle.getX()+(int)((double)paddle.getWidth()/2));
+			this.stickOn(0, paddle.getX());
+			
+		}
+		
+	}
+	public boolean isBonusStick() {
+		return bonusStick;
+	}
+	public void setBonusStick(boolean bonusStick) {
+		this.bonusStick = bonusStick;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package myPkg;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,6 +26,7 @@ public class MyPanel extends JPanel {
 	public MyPanel() {
 		game = new Game();
 		event = true;
+		
 		try {
 			bgImage = ImageIO.read(new File("C:/Users/piotr/Documents/GitHub/Programy/java/arkanoid/textures/bg.jpg"));
 			boxImage = ImageIO.read(new File("C:/Users/piotr/Documents/GitHub/Programy/java/arkanoid/textures/box/block.jpg"));

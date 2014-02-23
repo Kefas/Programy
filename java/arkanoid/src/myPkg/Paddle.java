@@ -12,6 +12,7 @@ public class Paddle {
 	private int borderDown;
 	private int borderLeft;
 	private int borderRight;
+	private int radius;
 
 
 	public Paddle(int x, int y, int width, int height) {
@@ -23,6 +24,7 @@ public class Paddle {
 		this.borderDown = 720 + 10;
 		this.borderRight = 1000 + 10;
 		this.borderLeft = 10;
+		radius = 140;
 	}
 
 	public int getHeight() {
@@ -38,7 +40,9 @@ public class Paddle {
 	}
 
 	public void setWidth(int width) {
-		this.width = width;
+		if(width > 60 && width < 300)
+			this.width = width;
+		radius = (int)((double)width*4/5);
 	}
 
 	public int getY() {
@@ -82,6 +86,15 @@ public class Paddle {
 	
 	public void setAcceleration(int accleration){
 		this.acceleration = accleration;
+	}
+
+	public int getR() {
+		return radius;
+	}
+
+	public void setR(int i) {
+		this.radius = i;
+		
 	}
 	
 	
