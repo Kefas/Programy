@@ -10,29 +10,44 @@ import java.util.concurrent.Executors;
 public class Game{
 	private Paddle paddle;
 	private List<Ball> balls;
-	private List<Box> box;
+	private List<Box> actualLevel;
 	private List<Drop> drop;
 	private ExecutorService exec;
 	private int score;
 	private int live;
 	private boolean bonusStick;
+	private List<List<Box>> levels;
 	
 	public Game(){
 		setPaddle(new Paddle(425,650,200,10));
 		drop = new LinkedList<Drop>();
 		balls = new ArrayList<Ball>();
-		box = new LinkedList<Box>();
+		List<Box> box= new LinkedList<Box>();
 		live = 3;
 		bonusStick = false;
-		
+		levels = new LinkedList<List<Box>>();
 		balls.add(new Ball());
-		balls.add(new Ball(400,703,7,4,-5));
-			
+//		balls.add(new Ball(400,703,7,4,-7));
+//		balls.add(new Ball());
 		
 		for(int i=0;i<19;i++)
 			box.add(new Box(50*i + 35,50, 50,15));
 		for(int i=0;i<19;i++)
 			box.add(new Box(50*i + 35,65, 50,15));
+		levels.add(box);
+		box.clear();
+		for(int i=0;i<19;i++)
+			box.add(new Box(50*i + 35,50, 50,15));
+		for(int i=0;i<19;i++)
+			box.add(new Box(50*i + 35,65, 50,15));
+		for(int i=0;i<19;i++)
+			box.add(new Box(50*i + 35,80, 50,15));
+		for(int i=0;i<19;i++)
+			box.add(new Box(50*i + 35,95, 50,15));
+		levels.add(box);
+		
+		actualLevel = levels.get(0);
+		
 		exec = Executors.newCachedThreadPool();
 //		exec.execute(balls.get(0));
 //		exec.execute(balls.get(1));
@@ -93,7 +108,7 @@ public class Game{
 	}
 
 	public List<Box> getBox(){
-		return box;
+		return actualLevel;
 	}
 
 	public List<Ball> getBall() {
@@ -112,8 +127,8 @@ public class Game{
 			balls.get(i).pause();
 	}
 	public void destroy(int x){
-		drop.add(new Drop(box.get(x).getX(), box.get(x).getY()));
-		box.remove(x);
+		drop.add(new Drop(actualLevel.get(x).getX(), actualLevel.get(x).getY()));
+		actualLevel.remove(x);
 		exec.execute(drop.get(drop.size()-1));	
 	}
 	public void collectDrop(Drop drop){
@@ -148,8 +163,7 @@ public class Game{
 	}
 
 	public void addScore(int i) {
-		this.score += i;
-		
+		this.score += i;	
 	}
 	
 	public void addBall(){

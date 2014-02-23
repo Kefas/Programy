@@ -53,6 +53,8 @@ public class Ball implements Runnable {
 	public void setY(int y) {
 		if(y >= 10)
 			this.y = y;
+		else
+			y = 11;
 	}
 	public int getRadius() {
 		return radius;
@@ -77,8 +79,7 @@ public class Ball implements Runnable {
 			Vy = vy;
 	}
 	public void setOppositeVy(){
-		if(alive)
-			Vy = -Vy;
+		Vy = -Vy;
 	}
 	public void dead(){
 		alive = false;
@@ -105,16 +106,13 @@ public class Ball implements Runnable {
 	@Override
 	public void run() {
 		while(true){
-			
-				if( x >= 10-Vx && x<=1010 - radius - Vx)
-					x += Vx;
-				if( y >=10 - Vy)
-					y += Vy;
-				try {
-					TimeUnit.MILLISECONDS.sleep(20);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			this.setX(x+Vx);
+			this.setY(y+Vy);
+			try {
+				TimeUnit.MILLISECONDS.sleep(20);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				
 			}
 			
